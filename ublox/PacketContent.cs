@@ -1,4 +1,5 @@
 ﻿using BinarySerialization;
+using ublox.Messages;
 
 namespace ublox
 {
@@ -12,6 +13,8 @@ namespace ublox
 
         [FieldOrder(3)]
         [FieldLength("Length")]
+        [Subtype("MessageId", MessageId.ACK_ACK, typeof(Ack))]
+        [Subtype("MessageId", MessageId.ACK_NAK, typeof(Nak))]
         public Payload Payload { get; set; }
     }
 }
