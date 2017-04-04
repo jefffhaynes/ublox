@@ -186,103 +186,495 @@
         /// RXM-IMES message
         /// </summary>
         RXM_IMES = 0x0261,
-        INF_ERROR = 0x0400, ///< ID of RXM-ERROR message
-        INF_WARNING = 0x0401, ///< ID of INF-WARNING message
-        INF_NOTICE = 0x0402, ///< ID of INF-NOTICE message
-        INF_TEST = 0x0403, ///< ID of INF-TEST message
-        INF_DEBUG = 0x0404, ///< ID of INF-DEBUG message
-        ACK_NAK = 0x0500, ///< ID of ACK-NACK message
-        ACK_ACK = 0x0501, ///< ID of ACK-ACK message
-        CFG_PRT = 0x0600, ///< ID of CFG-PRT message
-        CFG_MSG = 0x0601, ///< ID of CFG-MSG message
-        CFG_INF = 0x0602, ///< ID of CFG-INF message
-        CFG_RST = 0x0604, ///< ID of CFG-RST message
-        CFG_DAT = 0x0606, ///< ID of CFG-DAT message
-        CFG_TP = 0x0607, ///< ID of CFG-TP message
-        CFG_RATE = 0x0608, ///< ID of CFG-RATE message
-        CFG_CFG = 0x0609, ///< ID of CFG-CFG message
-        CFG_FXN = 0x060E, ///< ID of CFG-FXN message
-        CFG_RXM = 0x0611, ///< ID of CFG-RXM message
-        CFG_EKF = 0x0612, ///< ID of CFG-EKF message
-        CFG_ANT = 0x0613, ///< ID of CFG-ANT message
-        CFG_SBAS = 0x0616, ///< ID of CFG-SBAS message
-        CFG_NMEA = 0x0617, ///< ID of CFG-NMEA message
-        CFG_USB = 0x061b, ///< ID of CFG-USB message
-        CFG_TMODE = 0x061d, ///< ID of CFG-TMODE message
-        CFG_ODO = 0x061e, ///< ID of CFG-ODO message
-        CFG_NVS = 0x0622, ///< ID of CFG-NVS message
-        CFG_NAVX5 = 0x0623, ///< ID of CFG-NAVX5 message
-        CFG_NAV5 = 0x0624, ///< ID of CFG-NAV5 message
-        CFG_ESFGWT = 0x0629, ///< ID of CFG-ESFGWT message
-        CFG_TP5 = 0x0631, ///< ID of CFG-TP5 message
-        CFG_PM = 0x0632, ///< ID of CFG-PM message
-        CFG_RINV = 0x0634, ///< ID of CFG-RINV message
-        CFG_ITFM = 0x0639, ///< ID of CFG-ITFM message
-        CFG_PM2 = 0x063b, ///< ID of CFG-PM2 message
-        CFG_TMODE2 = 0x063d, ///< ID of CFG-TMODE2 message
-        CFG_GNSS = 0x063e, ///< ID of CFG-GNSS message
-        CFG_LOGFILTER = 0x0647, ///< ID of CFG-LOGFILTER message
-        CFG_TXSLOT = 0x0653, ///< ID of CFG-TXSLOT message
-        CFG_PWR = 0x0657, ///< ID of CFG-PWR message
-        CFG_ESRC = 0x0660, ///< ID of CFG-ESRC message
-        CFG_DOSC = 0x0661, ///< ID of CFG-DOSC message
-        CFG_SMGR = 0x0662, ///< ID of CFG-SMGR message
-        CFG_GEOFENCE = 0x0669, ///< ID of CFG-GEOFENCE message
-        CFG_FIXSEED = 0x0684, ///< ID of CFG-FIXSEED message
-        CFG_DYNSEED = 0x0685, ///< ID of CFG-DYNSEED message
-        CFG_PMS = 0x0686, ///< ID of CFG-PMS message
-        UPD_SOS = 0x0914, ///< ID of UPD-SOS message
-        MON_IO = 0x0a02, ///< ID of MON-IO message
-        MON_VER = 0x0a04, ///< ID of MON-VER message
-        MON_MSGPP = 0x0a06, ///< ID of MON-MSGPP message
-        MON_RXBUF = 0x0a07, ///< ID of MON-RXBUF message
-        MON_TXBUF = 0x0a08, ///< ID of MON-TXBUF message
-        MON_HW = 0x0a09, ///< ID of MON-HW message
-        MON_HW2 = 0x0a0b, ///< ID of MON-HW2 message
-        MON_RXR = 0x0a21, ///< ID of MON-RXR message
-        MON_PATCH = 0x0a27, ///< ID of MON-PATCH message
-        MON_GNSS = 0x0a28, ///< ID of MON-GNSS message
-        MON_SMGR = 0x0a2e, ///< ID of MON-SMGR message
-        AID_REQ = 0x0b00, ///< ID of AID-REQ message
-        AID_INI = 0x0b01, ///< ID of AID-INI message
-        AID_HUI = 0x0b02, ///< ID of AID-HUI message
-        AID_DATA = 0x0b10, ///< ID of AID-DATA message
-        AID_ALM = 0x0b30, ///< ID of AID-ALM message
-        AID_EPH = 0x0b31, ///< ID of AID-EPH message
-        AID_ALPSRV = 0x0b32, ///< ID of AID-ALPSRV message
-        AID_AOP = 0x0b33, ///< ID of AID-AOP message
-        AID_ALP = 0x0b50, ///< ID of AID-ALP message
-        TIM_TP = 0x0d01, ///< ID of TIM-TP message
-        TIM_TM2 = 0x0d03, ///< ID of TIM-TM2 message
-        TIM_SVIN = 0x0d04, ///< ID of TIM-SVIN message
-        TIM_VRFY = 0x0d06, ///< ID of TIM-VRFY message
-        TIM_DOSC = 0x0d11, ///< ID of TIM-DOSC message
-        TIM_TOS = 0x0d12, ///< ID of TIM-TOS message
-        TIM_SMEAS = 0x0d13, ///< ID of TIM-SMEAS message
-        TIM_VCOCAL = 0x0d15, ///< ID of TIM-VCOCAL message
-        TIM_FCHG = 0x0d16, ///< ID of TIM-FCHG message
-        TIM_HOC = 0x0d17, ///< ID of TIM-HOC message
-        ESF_STATUS = 0x1010, ///< ID of ESF-STATUS message
-        MGA_GPS = 0x1300, ///< ID of MGA-GPS message
-        MGA_GAL = 0x1302, ///< ID of MGA-GAL message
-        MGA_BDS = 0x1303, ///< ID of MGA-BDS message
-        MGA_QZSS = 0x1305, ///< ID of MGA-QZSS message
-        MGA_GLO = 0x1306, ///< ID of MGA-GLO message
-        MGA_ANO = 0x1320, ///< ID of MGA-ANO message
-        MGA_FLASH = 0x1321, ///< ID of MGA-FLASH message
-        MGA_INI = 0x1340, ///< ID of MGA-INI message
-        MGA_ACK = 0x1360, ///< ID of MGA-ACK message
-        MGA_DBD = 0x1380, ///< ID of MGA-DBD message
-        LOG_ERASE = 0x2103, ///< ID of LOG-ERASE message
-        LOG_STRING = 0x2104, ///< ID of LOG-STRING message
-        LOG_CREATE = 0x2107, ///< ID of LOG-CREATE message
-        LOG_INFO = 0x2108, ///< ID of LOG-INFO message
-        LOG_RETRIEVE = 0x2109, ///< ID of LOG-RETRIEVE message
-        LOG_RETRIEVEPOS = 0x210b, ///< ID of LOG-RETRIEVEPOS message
-        LOG_RETRIEVESTRING = 0x210d, ///< ID of LOG-RETRIEVESTRING message
-        LOG_FINDTIME = 0x210e, ///< ID of LOG-FINDTIME message
-        LOG_RETRIEVEPOSEXTRA = 0x210f, ///< ID of LOG-RETRIEVEPOSEXTRA message
-        SEC_SIGN = 0x2701, ///< ID of SEC-SIGN message
-        SEC_UNIQID = 0x2703 ///< ID of SEC-UNIQID message
+
+        /// <summary>
+        /// RXM-ERROR message
+        /// </summary>
+        INF_ERROR = 0x0400,
+
+        /// <summary>
+        /// INF-WARNING message
+        /// </summary>
+        INF_WARNING = 0x0401,
+
+        /// <summary>
+        /// INF-NOTICE message
+        /// </summary>
+        INF_NOTICE = 0x0402,
+
+        /// <summary>
+        /// INF-TEST message
+        /// </summary>
+        INF_TEST = 0x0403,
+
+        /// <summary>
+        /// INF-DEBUG message
+        /// </summary>
+        INF_DEBUG = 0x0404,
+
+        /// <summary>
+        /// ACK-NACK message
+        /// </summary>
+        ACK_NAK = 0x0500,
+
+        /// <summary>
+        /// ACK-ACK message
+        /// </summary>
+        ACK_ACK = 0x0501,
+
+        /// <summary>
+        /// CFG-PRT message
+        /// </summary>
+        CFG_PRT = 0x0600,
+
+        /// <summary>
+        /// CFG-MSG message
+        /// </summary>
+        CFG_MSG = 0x0601,
+
+        /// <summary>
+        /// CFG-INF message
+        /// </summary>
+        CFG_INF = 0x0602,
+
+        /// <summary>
+        /// CFG-RST message
+        /// </summary>
+        CFG_RST = 0x0604,
+
+        /// <summary>
+        /// CFG-DAT message
+        /// </summary>
+        CFG_DAT = 0x0606,
+
+        /// <summary>
+        /// CFG-TP message
+        /// </summary>
+        CFG_TP = 0x0607,
+
+        /// <summary>
+        /// CFG-RATE message
+        /// </summary>
+        CFG_RATE = 0x0608,
+
+        /// <summary>
+        /// CFG-CFG message
+        /// </summary>
+        CFG_CFG = 0x0609,
+
+        /// <summary>
+        /// CFG-FXN message
+        /// </summary>
+        CFG_FXN = 0x060E,
+
+        /// <summary>
+        /// CFG-RXM message
+        /// </summary>
+        CFG_RXM = 0x0611,
+
+        /// <summary>
+        /// CFG-EKF message
+        /// </summary>
+        CFG_EKF = 0x0612,
+
+        /// <summary>
+        /// CFG-ANT message
+        /// </summary>
+        CFG_ANT = 0x0613,
+
+        /// <summary>
+        /// CFG-SBAS message
+        /// </summary>
+        CFG_SBAS = 0x0616,
+
+        /// <summary>
+        /// CFG-NMEA message
+        /// </summary>
+        CFG_NMEA = 0x0617,
+
+        /// <summary>
+        /// CFG-USB message
+        /// </summary>
+        CFG_USB = 0x061b,
+
+        /// <summary>
+        /// CFG-TMODE message
+        /// </summary>
+        CFG_TMODE = 0x061d,
+
+        /// <summary>
+        /// CFG-ODO message
+        /// </summary>
+        CFG_ODO = 0x061e,
+
+        /// <summary>
+        /// CFG-NVS message
+        /// </summary>
+        CFG_NVS = 0x0622,
+
+        /// <summary>
+        /// CFG-NAVX5 message
+        /// </summary>
+        CFG_NAVX5 = 0x0623,
+
+        /// <summary>
+        /// CFG-NAV5 message
+        /// </summary>
+        CFG_NAV5 = 0x0624,
+
+        /// <summary>
+        /// CFG-ESFGWT message
+        /// </summary>
+        CFG_ESFGWT = 0x0629,
+
+        /// <summary>
+        /// CFG-TP5 message
+        /// </summary>
+        CFG_TP5 = 0x0631,
+
+        /// <summary>
+        /// CFG-PM message
+        /// </summary>
+        CFG_PM = 0x0632,
+
+        /// <summary>
+        /// CFG-RINV message
+        /// </summary>
+        CFG_RINV = 0x0634,
+
+        /// <summary>
+        /// CFG-ITFM message
+        /// </summary>
+        CFG_ITFM = 0x0639,
+
+        /// <summary>
+        /// CFG-PM2 message
+        /// </summary>
+        CFG_PM2 = 0x063b,
+
+        /// <summary>
+        /// CFG-TMODE2 message
+        /// </summary>
+        CFG_TMODE2 = 0x063d,
+
+        /// <summary>
+        /// CFG-GNSS message
+        /// </summary>
+        CFG_GNSS = 0x063e,
+
+        /// <summary>
+        /// CFG-LOGFILTER message
+        /// </summary>
+        CFG_LOGFILTER = 0x0647,
+
+        /// <summary>
+        /// CFG-TXSLOT message
+        /// </summary>
+        CFG_TXSLOT = 0x0653,
+
+        /// <summary>
+        /// CFG-PWR message
+        /// </summary>
+        CFG_PWR = 0x0657,
+
+        /// <summary>
+        /// CFG-ESRC message
+        /// </summary>
+        CFG_ESRC = 0x0660,
+
+        /// <summary>
+        /// CFG-DOSC message
+        /// </summary>
+        CFG_DOSC = 0x0661,
+
+        /// <summary>
+        /// CFG-SMGR message
+        /// </summary>
+        CFG_SMGR = 0x0662,
+
+        /// <summary>
+        /// CFG-GEOFENCE message
+        /// </summary>
+        CFG_GEOFENCE = 0x0669,
+
+        /// <summary>
+        /// CFG-FIXSEED message
+        /// </summary>
+        CFG_FIXSEED = 0x0684,
+
+        /// <summary>
+        /// CFG-DYNSEED message
+        /// </summary>
+        CFG_DYNSEED = 0x0685,
+
+        /// <summary>
+        /// CFG-PMS message
+        /// </summary>
+        CFG_PMS = 0x0686,
+
+        /// <summary>
+        /// UPD-SOS message
+        /// </summary>
+        UPD_SOS = 0x0914,
+
+        /// <summary>
+        /// MON-IO message
+        /// </summary>
+        MON_IO = 0x0a02,
+
+        /// <summary>
+        /// MON-VER message
+        /// </summary>
+        MON_VER = 0x0a04,
+
+        /// <summary>
+        /// MON-MSGPP message
+        /// </summary>
+        MON_MSGPP = 0x0a06,
+
+        /// <summary>
+        /// MON-RXBUF message
+        /// </summary>
+        MON_RXBUF = 0x0a07,
+
+        /// <summary>
+        /// MON-TXBUF message
+        /// </summary>
+        MON_TXBUF = 0x0a08,
+
+        /// <summary>
+        /// MON-HW message
+        /// </summary>
+        MON_HW = 0x0a09,
+
+        /// <summary>
+        /// MON-HW2 message
+        /// </summary>
+        MON_HW2 = 0x0a0b,
+
+        /// <summary>
+        /// MON-RXR message
+        /// </summary>
+        MON_RXR = 0x0a21,
+
+        /// <summary>
+        /// MON-PATCH message
+        /// </summary>
+        MON_PATCH = 0x0a27,
+
+        /// <summary>
+        /// MON-GNSS message
+        /// </summary>
+        MON_GNSS = 0x0a28,
+
+        /// <summary>
+        /// MON-SMGR message
+        /// </summary>
+        MON_SMGR = 0x0a2e,
+
+        /// <summary>
+        /// AID-REQ message
+        /// </summary>
+        AID_REQ = 0x0b00,
+
+        /// <summary>
+        /// AID-INI message
+        /// </summary>
+        AID_INI = 0x0b01,
+
+        /// <summary>
+        /// AID-HUI message
+        /// </summary>
+        AID_HUI = 0x0b02,
+
+        /// <summary>
+        /// AID-DATA message
+        /// </summary>
+        AID_DATA = 0x0b10,
+
+        /// <summary>
+        /// AID-ALM message
+        /// </summary>
+        AID_ALM = 0x0b30,
+
+        /// <summary>
+        /// AID-EPH message
+        /// </summary>
+        AID_EPH = 0x0b31,
+
+        /// <summary>
+        /// AID-ALPSRV message
+        /// </summary>
+        AID_ALPSRV = 0x0b32,
+
+        /// <summary>
+        /// AID-AOP message
+        /// </summary>
+        AID_AOP = 0x0b33,
+
+        /// <summary>
+        /// AID-ALP message
+        /// </summary>
+        AID_ALP = 0x0b50,
+
+        /// <summary>
+        /// TIM-TP message
+        /// </summary>
+        TIM_TP = 0x0d01,
+
+        /// <summary>
+        /// TIM-TM2 message
+        /// </summary>
+        TIM_TM2 = 0x0d03,
+
+        /// <summary>
+        /// TIM-SVIN message
+        /// </summary>
+        TIM_SVIN = 0x0d04,
+
+        /// <summary>
+        /// TIM-VRFY message
+        /// </summary>
+        TIM_VRFY = 0x0d06,
+
+        /// <summary>
+        /// TIM-DOSC message
+        /// </summary>
+        TIM_DOSC = 0x0d11,
+
+        /// <summary>
+        /// TIM-TOS message
+        /// </summary>
+        TIM_TOS = 0x0d12,
+
+        /// <summary>
+        /// TIM-SMEAS message
+        /// </summary>
+        TIM_SMEAS = 0x0d13,
+
+        /// <summary>
+        /// TIM-VCOCAL message
+        /// </summary>
+        TIM_VCOCAL = 0x0d15,
+
+        /// <summary>
+        /// TIM-FCHG message
+        /// </summary>
+        TIM_FCHG = 0x0d16,
+
+        /// <summary>
+        /// TIM-HOC message
+        /// </summary>
+        TIM_HOC = 0x0d17,
+
+        /// <summary>
+        /// ESF-STATUS message
+        /// </summary>
+        ESF_STATUS = 0x1010,
+
+        /// <summary>
+        /// MGA-GPS message
+        /// </summary>
+        MGA_GPS = 0x1300,
+
+        /// <summary>
+        /// MGA-GAL message
+        /// </summary>
+        MGA_GAL = 0x1302,
+
+        /// <summary>
+        /// MGA-BDS message
+        /// </summary>
+        MGA_BDS = 0x1303,
+
+        /// <summary>
+        /// MGA-QZSS message
+        /// </summary>
+        MGA_QZSS = 0x1305,
+
+        /// <summary>
+        /// MGA-GLO message
+        /// </summary>
+        MGA_GLO = 0x1306,
+
+        /// <summary>
+        /// MGA-ANO message
+        /// </summary>
+        MGA_ANO = 0x1320,
+
+        /// <summary>
+        /// MGA-FLASH message
+        /// </summary>
+        MGA_FLASH = 0x1321,
+
+        /// <summary>
+        /// MGA-INI message
+        /// </summary>
+        MGA_INI = 0x1340,
+
+        /// <summary>
+        /// MGA-ACK message
+        /// </summary>
+        MGA_ACK = 0x1360,
+
+        /// <summary>
+        /// MGA-DBD message
+        /// </summary>
+        MGA_DBD = 0x1380,
+
+        /// <summary>
+        /// LOG-ERASE message
+        /// </summary>
+        LOG_ERASE = 0x2103,
+
+        /// <summary>
+        /// LOG-STRING message
+        /// </summary>
+        LOG_STRING = 0x2104,
+
+        /// <summary>
+        /// LOG-CREATE message
+        /// </summary>
+        LOG_CREATE = 0x2107,
+
+        /// <summary>
+        /// LOG-INFO message
+        /// </summary>
+        LOG_INFO = 0x2108,
+
+        /// <summary>
+        /// LOG-RETRIEVE message
+        /// </summary>
+        LOG_RETRIEVE = 0x2109,
+
+        /// <summary>
+        /// LOG-RETRIEVEPOS message
+        /// </summary>
+        LOG_RETRIEVEPOS = 0x210b,
+
+        /// <summary>
+        /// LOG-RETRIEVESTRING message
+        /// </summary>
+        LOG_RETRIEVESTRING = 0x210d,
+
+        /// <summary>
+        /// LOG-FINDTIME message
+        /// </summary>
+        LOG_FINDTIME = 0x210e,
+
+        /// <summary>
+        /// LOG-RETRIEVEPOSEXTRA message
+        /// </summary>
+        LOG_RETRIEVEPOSEXTRA = 0x210f,
+
+        /// <summary>
+        /// SEC-SIGN message
+        /// </summary>
+        SEC_SIGN = 0x2701,
+
+        /// <summary>
+        /// SEC-UNIQID message
+        /// </summary>
+        SEC_UNIQID = 0x2703
     }
 }

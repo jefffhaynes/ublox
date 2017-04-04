@@ -8,10 +8,10 @@ namespace ublox
         public ushort SyncCharacters { get; set; }
 
         [FieldOrder(1)]
-        [FieldCrc16("Crc")]
+        [FieldFletcherChecksum("Checksum")]
         public PacketContent Content { get; set; }
 
         [FieldOrder(2)]
-        public ushort Crc { get; set; }
+        public ushort Checksum { get; set; }
     }
 }
