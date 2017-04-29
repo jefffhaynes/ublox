@@ -76,7 +76,7 @@ namespace ublox.Messages
         [SerializeAs(SerializedType.Int4)]
         public double HeadingOfVehicle { get; set; }
 
-        [FieldOrder(18)]
+        [FieldOrder(20)]
         public byte Reserved2 { get; set; }
     }
 }
