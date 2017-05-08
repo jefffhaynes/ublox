@@ -1,5 +1,6 @@
 ﻿using BinarySerialization;
 using ublox.Data;
+using ublox.Messages.Enums;
 
 namespace ublox.Messages
 {

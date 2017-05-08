@@ -1,4 +1,4 @@
-﻿namespace ublox.Messages
+﻿namespace ublox.Messages.Enums
 {
     public enum GnssFixType : byte
     {

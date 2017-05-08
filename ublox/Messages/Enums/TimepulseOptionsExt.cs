@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ublox.Messages
+namespace ublox.Messages.Enums
 {
     [Flags]
     public enum TimepulseOptionsExt : uint
