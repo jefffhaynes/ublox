@@ -1,8 +1,9 @@
 ﻿using BinarySerialization;
+using ublox.Data;
 
 namespace ublox.Messages
 {
-    public class NavPvt : Payload
+    public class NavPvt : PacketPayload
     {
         [FieldOrder(0)]
         public GpsTimeOfWeek GpsTimeOfWeek { get; set; }

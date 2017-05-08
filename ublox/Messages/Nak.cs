@@ -1,6 +1,6 @@
 ﻿namespace ublox.Messages
 {
-    public class Nak : Payload
+    public class Nak : PacketPayload
     {
         public MessageId NotAcknowledgedMessage { get; set; }
     }

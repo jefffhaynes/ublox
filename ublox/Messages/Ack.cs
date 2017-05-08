@@ -1,6 +1,6 @@
 ﻿namespace ublox.Messages
 {
-    public class Ack : Payload
+    public class Ack : PacketPayload
     {
         public MessageId AcknowledgedMessage { get; set; }
     }
