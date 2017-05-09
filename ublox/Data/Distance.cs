@@ -4,13 +4,20 @@ namespace ublox.Data
 {
     public abstract class Distance
     {
-        private const double MillimetersPerMeter = 1000;
+        protected Distance()
+        {
+        }
+
+        protected Distance(double meters)
+        {
+            TotalMeters = meters;
+        }
 
         [Ignore]
         public double TotalMeters
         {
-            get => GetMillimeters() / MillimetersPerMeter;
-            set => SetMillimeters(value * MillimetersPerMeter);
+            get => GetMillimeters() / Constants.MillimetersPerMeter;
+            set => SetMillimeters(value * Constants.MillimetersPerMeter);
         }
 
         protected abstract double GetMillimeters();

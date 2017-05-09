@@ -6,6 +6,7 @@ namespace ublox
     public class PacketContent
     {
         [FieldOrder(1)]
+        [FieldEndianness(Endianness.Big)]
         public MessageId MessageId { get; set; }
 
         [FieldOrder(2)]

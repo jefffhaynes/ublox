@@ -4,6 +4,14 @@ namespace ublox.Data
 {
     public class UnsignedDistance : Distance
     {
+        public UnsignedDistance()
+        {
+        }
+
+        public UnsignedDistance(double meters) : base(meters)
+        {
+        }
+
         public uint TotalMillimeters { get; set; }
 
         protected override double GetMillimeters()

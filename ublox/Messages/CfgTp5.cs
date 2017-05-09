@@ -6,6 +6,13 @@ namespace ublox.Messages
 {
     public class CfgTp5 : PacketPayload
     {
+        private const byte DefaultVersion = 1;
+
+        public CfgTp5()
+        {
+            Version = DefaultVersion;
+        }
+
         [FieldOrder(0)]
         public Timepulse Timepulse { get; set; }
 

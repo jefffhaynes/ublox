@@ -5,6 +5,15 @@ namespace ublox.Data
 {
     public class UbloxDateTime
     {
+        public UbloxDateTime()
+        {
+        }
+
+        public UbloxDateTime(DateTime dateTime)
+        {
+            DateTime = dateTime;
+        }
+
         [FieldOrder(0)]
         public ushort Year { get; set; }
 
@@ -32,11 +41,28 @@ namespace ublox.Data
         [FieldOrder(8)]
         public int Nanosecond { get; set; }
 
-        public DateTime ToDateTime()
+        [Ignore]
+        public DateTime DateTime
         {
-            var dt = new DateTime(Year, Month, Day, Hour, Minute, Second);
-            var ticks = Nanosecond * Constants.TicksPerNanosecond;
-            return dt.AddTicks(ticks);
+            get
+            {
+                var dt = new DateTime(Year, Month, Day, Hour, Minute, Second);
+                var ticks = Nanosecond * Constants.TicksPerNanosecond;
+                return dt.AddTicks(ticks);
+            }
+
+            set
+            {
+                Year = (ushort) value.Year;
+                Month = (byte) value.Month;
+                Day = (byte) value.Day;
+                Hour = (byte) value.Hour;
+                Minute = (byte) value.Minute;
+                Second = (byte) value.Second;
+
+                var remainder = value - new DateTime(Year, Month, Day, Hour, Minute, Second);
+                Nanosecond = (int) (remainder.Ticks / Constants.TicksPerNanosecond);
+            }
         }
     }
 }

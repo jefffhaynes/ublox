@@ -4,6 +4,11 @@ namespace ublox
 {
     public class Packet
     {
+        public Packet()
+        {
+            SyncCharacters = Constants.SyncCharacters;
+        }
+
         [FieldOrder(0)]
         public ushort SyncCharacters { get; set; }
 
