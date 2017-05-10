@@ -80,5 +80,24 @@ namespace ublox.Messages
 
         [FieldOrder(20)]
         public byte Reserved2 { get; set; }
+
+        public PositionVelocityTime GetPositionVelocityTime()
+        {
+            return new PositionVelocityTime
+            {
+                DateTime = UbloxDateTime.DateTime,
+                FixType = FixType,
+                GroundSpeed = GroundSpeed,
+                HeadingAccuracyEstimate = HeadingAccuracyEstimate,
+                HeadingOfVehicle = HeadingOfVehicle,
+                HeadingOfMotion = HeadingOfMotion,
+                Height = Height,
+                HeightAboveMeanSeaLevel = HeightAboveMeanSeaLevel,
+                HorizontalAccuracyEstimate = HorizontalAccuracyEstimate,
+                Latitude = Latitude,
+                Longitude = Longitude,
+                SpeedAccuracyEstimate = SpeedAccuracyEstimate
+            };
+        }
     }
 }
