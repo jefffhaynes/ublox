@@ -22,17 +22,14 @@ namespace ublox
         {
             for (int i = offset; i < count; i++)
             {
-                _sum1 = (_sum2 + buffer[i]) % byte.MaxValue;
+                _sum1 = (_sum1 + buffer[i]) % byte.MaxValue;
                 _sum2 = (_sum2 + _sum1) % byte.MaxValue;
             }
         }
 
         protected override object ComputeFinal()
         {
-            var a = (byte)(byte.MaxValue - (_sum1 + _sum2) % byte.MaxValue);
-            var b = (byte)(byte.MaxValue - (_sum1 + a) % byte.MaxValue);
-
-            return BitConverter.ToUInt16(new[] {a, b}, 0);
+            return BitConverter.ToUInt16(new[] {(byte)_sum1, (byte)_sum2}, 0);
         }
     }
 }

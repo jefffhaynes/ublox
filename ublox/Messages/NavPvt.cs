@@ -94,9 +94,13 @@ namespace ublox.Messages
                 Height = Height,
                 HeightAboveMeanSeaLevel = HeightAboveMeanSeaLevel,
                 HorizontalAccuracyEstimate = HorizontalAccuracyEstimate,
+                VerticalAccuracyEstimate = VerticalAccuracyEstimate,
                 Latitude = Latitude,
                 Longitude = Longitude,
-                SpeedAccuracyEstimate = SpeedAccuracyEstimate
+                SpeedAccuracyEstimate = SpeedAccuracyEstimate,
+                SatelliteCount = SatelliteCount,
+                Velocity = Velocity,
+                PositionDilutionOfPrecision = PositionDilutionOfPrecision
             };
         }
     }
