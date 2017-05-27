@@ -1,7 +1,7 @@
 using System;
-using ublox.Data;
-using ublox.Messages;
-using ublox.Messages.Enums;
+using ublox.Core.Data;
+using ublox.Core.Messages;
+using ublox.Core.Messages.Enums;
 using Xunit;
 
 namespace ublox.Test

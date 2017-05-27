@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>ublox.Core</AssemblyName>
+    <RootNamespace>ublox.Core</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BinarySerializer" Version="7.5.1" />
+  </ItemGroup>
+
+</Project>

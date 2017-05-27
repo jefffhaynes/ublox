@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using BinarySerialization;
+using ublox.Core;
 using Xunit.Sdk;
 
 namespace ublox.Test

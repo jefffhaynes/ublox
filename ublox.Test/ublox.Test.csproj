@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ublox\ublox.csproj" />
+    <ProjectReference Include="..\ublox.Core\ublox.Core.csproj" />
+    <ProjectReference Include="..\ublox\ublox.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
