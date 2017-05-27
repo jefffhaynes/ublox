@@ -37,7 +37,7 @@ namespace ublox.Test
                 if (actual[i] != expected[i])
                 {
                     var actualHex = string.Join(", ", actual.Select(b =>$"0x{b:x2}"));
-                    throw new XunitException($"Expected {expected[i]} at position {i}, actual was {actual[i]}.");
+                    throw new XunitException($"Expected 0x{expected[i]:x2} at position {i}, actual was 0x{actual[i]:x2}.");
                 }
             }
 

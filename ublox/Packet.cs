@@ -14,8 +14,7 @@ namespace ublox
 
         [FieldOrder(1)]
         [FieldFletcherChecksum("Checksum")]
-        [SubtypeDefault(typeof(PacketContent))]
-        public PacketContentBase Content { get; set; }
+        public PacketContent Content { get; set; }
 
         [FieldOrder(2)]
         public ushort Checksum { get; set; }

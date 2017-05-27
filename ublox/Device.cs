@@ -54,7 +54,7 @@ namespace ublox
         {
             var packet = new Packet
             {
-                Content = new PacketContentBase
+                Content = new PacketContent
                 {
                     MessageId = messageId
                 }
