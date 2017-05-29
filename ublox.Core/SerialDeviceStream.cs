@@ -60,7 +60,7 @@ namespace ublox.Core
                 throw new ArgumentOutOfRangeException(nameof(count), count, "Must match buffer length.");
             }
 
-            var data = await _serialDevice.ReadAsync(count, cancellationToken);
+            var data = await _serialDevice.ReadAsync((uint)count, cancellationToken);
             Array.Copy(data, buffer, data.Length);
             return data.Length;
         }

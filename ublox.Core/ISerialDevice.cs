@@ -6,6 +6,6 @@ namespace ublox.Core
     public interface ISerialDevice
     {
         void Write(byte[] data);
-        Task<byte[]> ReadAsync(int count, CancellationToken cancellationToken);
+        Task<byte[]> ReadAsync(uint count, CancellationToken cancellationToken);
     }
 }
