@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using BinarySerialization;
@@ -13,10 +14,18 @@ namespace ublox.Core
         private readonly CancellationTokenSource _listenCancellationTokenSource = new CancellationTokenSource();
         private readonly ISerialDevice _serialDevice;
         private TaskCompletionSource<Packet> _commandCompletionSource;
-        private MessageId _expectedMessageId;
 
+        public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
+        
         public Device(ISerialDevice serialDevice)
         {
+#if DEBUG
+            Serializer.MemberDeserialized += OnMemberDeserialized;
+            Serializer.MemberDeserializing += OnMemberDeserializing;
+            Serializer.MemberSerialized += OnMemberSerialized;
+            Serializer.MemberSerializing += OnMemberSerializing;
+#endif
+
             _serialDevice = serialDevice;
             Task.Run(() => ListenAsync());
         }
@@ -26,31 +35,44 @@ namespace ublox.Core
             _listenCancellationTokenSource.Cancel();
         }
 
-        public async Task<PositionVelocityTime> GetPositionVelocityTimeAsync(CancellationToken cancellationToken)
+        public void PollPositionVelocityTime()
         {
-            var navPvt = await PollAsync<NavPvt>(new NavPvtPoll(), cancellationToken).ConfigureAwait(false);
-            return navPvt.GetPositionVelocityTime();
+            Poll(new NavPvtPoll());
         }
 
         private async Task CommandAsync(PacketPayload payload, CancellationToken cancellationToken)
         {
-            var packet = new Packet
+            await _completionLock.WaitAsync(cancellationToken).ConfigureAwait(false);
+
+            _commandCompletionSource = new TaskCompletionSource<Packet>();
+
+            try
             {
-                Content = new PacketContent
+                var packet = new Packet
                 {
-                    Payload = payload
+                    Content = new PacketContent
+                    {
+                        Payload = payload
+                    }
+                };
+
+                Send(packet);
+
+                var responsePacket = await _commandCompletionSource.Task.ConfigureAwait(false);
+                var messageId = responsePacket.Content.MessageId;
+
+                if (messageId != MessageId.ACK_ACK)
+                {
+                    throw new InvalidOperationException($"Received {messageId}");
                 }
-            };
-
-            var response = await SendAsync(packet, cancellationToken).ConfigureAwait(false);
-
-            if (response.MessageId != MessageId.ACK_ACK)
+            }
+            finally
             {
-                throw new InvalidOperationException($"Received {response.MessageId}");
+                _completionLock.Release();
             }
         }
 
-        private async Task<TPacketPayload> PollAsync<TPacketPayload>(PacketPayload packetPayload, CancellationToken cancellationToken) where TPacketPayload : PacketPayload
+        private void Poll(PacketPayload packetPayload)
         {
             var packet = new Packet
             {
@@ -60,41 +82,16 @@ namespace ublox.Core
                 }
             };
 
-            var packetContent = await SendAsync(packet, cancellationToken);
-            return packetContent.Payload as TPacketPayload;
+            Send(packet);
         }
 
-        private async Task<PacketContent> SendAsync(Packet packet, CancellationToken cancellationToken)
+        private void Send(Packet packet)
         {
             using (var stream = new SerialDeviceStream(_serialDevice))
             {
+                Serializer.Serialize(stream, Constants.SyncCharacters);
                 Serializer.Serialize(stream, packet);
             }
-
-            /* There is an intrinsic but probably (?) harmless race condition in the u-blox protocol.
-             * As incoming messges could either be the result of polling or periodic reporting from
-             * the device, we don't really know if what we're getting back is what we asked for or is
-             * simply something similar that was already "in flight".  In practice, we probably don't 
-             * care although it's possible (I don't know) that this could cause problems if the mistaken
-             * response is answering a slightly different question than the one which was asked.  We 
-             * lock to minimize the opportunity for the race condition to occur but it is impossible to 
-             * completely prevent it as the incoming packets lack any sort of operation context.
-            */
-            try
-            {
-                await _completionLock.WaitAsync(cancellationToken).ConfigureAwait(false);
-                _commandCompletionSource = new TaskCompletionSource<Packet>();
-
-                // for non-polling operations MessageId will be zero, but that's ok
-                _expectedMessageId = packet.Content.MessageId;
-            }
-            finally
-            {
-                _completionLock.Release();
-            }
-
-            var responsePacket = await _commandCompletionSource.Task.ConfigureAwait(false);
-            return responsePacket.Content;
         }
 
         private async void ListenAsync()
@@ -105,27 +102,67 @@ namespace ublox.Core
             {
                 using (var stream = new SerialDeviceStream(_serialDevice))
                 {
+                    var sync1 = new byte[1];
+                    var sync2 = new byte[1];
+
+                    while (sync2[0] != 0x62)
+                    {
+                        while (sync1[0] != 0xb5)
+                        {
+                            await stream.ReadAsync(sync1, 0, sync1.Length, cancellationToken);
+                        }
+
+                        await stream.ReadAsync(sync2, 0, sync2.Length, cancellationToken);
+                    }
+
                     var packet = await Serializer.DeserializeAsync<Packet>(stream, cancellationToken)
                         .ConfigureAwait(false);
 
+                    Debug.WriteLine($"Recieved {packet.Content.MessageId}");
+
                     var messageId = packet.Content.MessageId;
 
-                    try
+                    if (messageId == MessageId.ACK_ACK || messageId == MessageId.ACK_NAK)
                     {
-                        await _completionLock.WaitAsync(cancellationToken);
-
-                        if (messageId == MessageId.ACK_ACK || messageId == MessageId.ACK_NAK
-                            || packet.Content.MessageId == _expectedMessageId)
-                        {
-                            _commandCompletionSource?.SetResult(packet);
-                        }
+                        _commandCompletionSource?.SetResult(packet);
                     }
-                    finally
+                    else
                     {
-                        _completionLock.Release();
+                        switch (messageId)
+                        {
+                            case MessageId.NAV_PVT:
+                            {
+                                PositionVelocityTimeUpdated?.Invoke(this,
+                                    new PositionVelocityTimeEventArgs(packet.Content.Payload as NavPvt));
+
+                                break;
+                            }
+                        }
                     }
                 }
             }
+        }
+
+        private static void OnMemberSerializing(object sender, MemberSerializingEventArgs e)
+        {
+            Debug.WriteLine("S-Start: {0} @ {1}", e.MemberName, e.Offset);
+        }
+
+        private static void OnMemberSerialized(object sender, MemberSerializedEventArgs e)
+        {
+            var value = e.Value ?? "null";
+            Debug.WriteLine("S-End: {0} ({1}) @ {2}", e.MemberName, value, e.Offset);
+        }
+
+        private static void OnMemberDeserializing(object sender, MemberSerializingEventArgs e)
+        {
+            Debug.WriteLine("D-Start: {0} @ {1}", e.MemberName, e.Offset);
+        }
+
+        private static void OnMemberDeserialized(object sender, MemberSerializedEventArgs e)
+        {
+            var value = e.Value ?? "null";
+            Debug.WriteLine("D-End: {0} ({1}) @ {2}", e.MemberName, value, e.Offset);
         }
     }
 }
