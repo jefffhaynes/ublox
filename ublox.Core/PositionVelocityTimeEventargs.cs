@@ -42,6 +42,6 @@ namespace ublox.Core
         public Velocity SpeedAccuracyEstimate { get; }
         public double HeadingAccuracyEstimate { get; }
         public double PositionDilutionOfPrecision { get; }
-        public double HeadingOfVehicle { get; }
+        public double? HeadingOfVehicle { get; }
     }
 }

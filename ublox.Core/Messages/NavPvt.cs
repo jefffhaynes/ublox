@@ -71,14 +71,22 @@ namespace ublox.Core.Messages
         public double PositionDilutionOfPrecision { get; set; }
 
         [FieldOrder(18)]
-        public byte Reserved1 { get; set; }
-        
+        [FieldLength(6)]
+        public byte[] Reserved2 { get; set; }
+
+        #region V15
+
         [FieldOrder(19)]
         [FieldScale(100000)]
         [SerializeAs(SerializedType.Int4)]
-        public double HeadingOfVehicle { get; set; }
+        //[SerializeWhen("ProtocolVersion", "15.00", RelativeSourceMode = RelativeSourceMode.SerializationContext)]
+        public double? HeadingOfVehicle { get; set; }
 
         [FieldOrder(20)]
-        public byte Reserved2 { get; set; }
+        [FieldLength(4)]
+        //[SerializeWhen("ProtocolVersion", "15.00", RelativeSourceMode = RelativeSourceMode.SerializationContext)]
+        public byte[] Reserved3 { get; set; }
+
+        #endregion
     }
 }

@@ -44,7 +44,8 @@ namespace ublox.Utility.ViewModels
             var devices = await DeviceInformation.FindAllAsync(SerialDevice.GetDeviceSelector());
             var serialDeviceTasks = devices.Select(device => SerialDevice.FromIdAsync(device.Id).AsTask());
             var serialDevices = await Task.WhenAll(serialDeviceTasks);
-            var serialDeviceViewModels = serialDevices.Select(serialDevice => new SerialDeviceViewModel(serialDevice))
+            var validSerialDevices = serialDevices.Where(device => device != null);
+            var serialDeviceViewModels = validSerialDevices.Select(serialDevice => new SerialDeviceViewModel(serialDevice))
                 .ToList();
 
             var newDevices = serialDeviceViewModels.Except(SerialDevices).ToList();
@@ -102,8 +103,9 @@ namespace ublox.Utility.ViewModels
                 });
             };
 
-            //await Task.Delay(TimeSpan.FromMinutes(5));
-            //var test = await gps.GetPositionVelocityTimeAsync();
+            await _gps.InitializeAsync();
+
+            _gps.PollPositionVelocityTime();
         }
     }
 }

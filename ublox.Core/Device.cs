@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BinarySerialization;
 using ublox.Core.Messages;
+using ublox.Core.Messages.Enums;
 
 namespace ublox.Core
 {
@@ -14,6 +17,10 @@ namespace ublox.Core
         private readonly CancellationTokenSource _listenCancellationTokenSource = new CancellationTokenSource();
         private readonly ISerialDevice _serialDevice;
         private TaskCompletionSource<Packet> _commandCompletionSource;
+
+        //private readonly TaskCompletionSource<bool> _protocolVersionTaskCompletionSource = new TaskCompletionSource<bool>();
+        private const string ProtocolVersionExtensionPrefix = "PROTVER";
+        private string _protocolVersion;
 
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
         
@@ -27,12 +34,36 @@ namespace ublox.Core
 #endif
 
             _serialDevice = serialDevice;
-            Task.Run(() => ListenAsync());
         }
 
         public void Dispose()
         {
             _listenCancellationTokenSource.Cancel();
+        }
+
+        public async Task InitializeAsync()
+        {
+            await Task.Run(() => ListenAsync());
+            await ConfigurePortAsync(UartPort.Uart1, 9600, PortInProtocols.Ubx, PortOutProtocols.Ubx);
+        }
+
+        public Task ConfigurePortAsync(UartPort port, uint baudRate, PortInProtocols inProtocols, PortOutProtocols outProtocols, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var cfgPrt = new CfgPrt
+            {
+                Port = port,
+                BaudRate = baudRate,
+                InProtocols = inProtocols,
+                OutProtocols = outProtocols,
+                Mode = UartMode.EightBit | UartMode.OneStopBit | UartMode.NoParity
+            };
+
+            return CommandAsync(cfgPrt, cancellationToken);
+        }
+
+        private void PollVersion()
+        {
+            Poll(new MonVerPoll());
         }
 
         public void PollPositionVelocityTime()
@@ -87,6 +118,18 @@ namespace ublox.Core
 
         private void Send(Packet packet)
         {
+#if DEBUG
+            using (var stream = new MemoryStream())
+            {
+                Serializer.Serialize(stream, Constants.SyncCharacters);
+                Serializer.Serialize(stream, packet);
+
+                var data = stream.ToArray();
+
+                Debug.WriteLine($"Sending: {BitConverter.ToString(data)}");
+            }
+#endif
+
             using (var stream = new SerialDeviceStream(_serialDevice))
             {
                 Serializer.Serialize(stream, Constants.SyncCharacters);
@@ -94,11 +137,11 @@ namespace ublox.Core
             }
         }
 
-        private async void ListenAsync()
+        private async void ListenAsync(bool once = false)
         {
             var cancellationToken = _listenCancellationTokenSource.Token;
 
-            while (!cancellationToken.IsCancellationRequested)
+            do
             {
                 using (var stream = new SerialDeviceStream(_serialDevice))
                 {
@@ -107,7 +150,7 @@ namespace ublox.Core
 
                     while (sync2[0] != 0x62)
                     {
-                        while (sync1[0] != 0xb5)
+                        while (sync1[0] != 0xb5 && sync1[0] != 0x35)
                         {
                             await stream.ReadAsync(sync1, 0, sync1.Length, cancellationToken);
                         }
@@ -115,32 +158,49 @@ namespace ublox.Core
                         await stream.ReadAsync(sync2, 0, sync2.Length, cancellationToken);
                     }
 
+                    //var context = new SerializationContext {ProtocolVersion = _protocolVersion};
+
                     var packet = await Serializer.DeserializeAsync<Packet>(stream, cancellationToken)
                         .ConfigureAwait(false);
 
                     Debug.WriteLine($"Recieved {packet.Content.MessageId}");
 
                     var messageId = packet.Content.MessageId;
-
-                    if (messageId == MessageId.ACK_ACK || messageId == MessageId.ACK_NAK)
+                    switch (messageId)
                     {
-                        _commandCompletionSource?.SetResult(packet);
-                    }
-                    else
-                    {
-                        switch (messageId)
+                        case MessageId.ACK_ACK:
+                        case MessageId.ACK_NAK:
+                            _commandCompletionSource?.SetResult(packet);
+                            break;
+            
+                        case MessageId.MON_VER:
                         {
-                            case MessageId.NAV_PVT:
-                            {
-                                PositionVelocityTimeUpdated?.Invoke(this,
-                                    new PositionVelocityTimeEventArgs(packet.Content.Payload as NavPvt));
+                            var monVer = (MonVer) packet.Content.Payload;
+                            var extensions = monVer.Extensions;
+                            var protVerExtension =
+                                extensions.FirstOrDefault(
+                                    extension => extension.Value.StartsWith(ProtocolVersionExtensionPrefix));
 
-                                break;
+                            if (protVerExtension != null)
+                            {
+                                var extensionParts = protVerExtension.Value.Split(' ');
+                                _protocolVersion = extensionParts[1];
+                                //_protocolVersionTaskCompletionSource.SetResult(true);
                             }
+
+                            break;
+                        }
+
+                        case MessageId.NAV_PVT:
+                        {
+                            PositionVelocityTimeUpdated?.Invoke(this,
+                                new PositionVelocityTimeEventArgs((NavPvt)packet.Content.Payload));
+
+                            break;
                         }
                     }
                 }
-            }
+            } while (!cancellationToken.IsCancellationRequested && !once);
         }
 
         private static void OnMemberSerializing(object sender, MemberSerializingEventArgs e)

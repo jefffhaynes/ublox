@@ -16,7 +16,7 @@ namespace ublox.Test
             var stream = new MemoryStream();
             var packet = new Packet
             {
-                SyncCharacters = Constants.SyncCharacters,
+                //SyncCharacters = Constants.SyncCharacters,
                 Content = new PacketContent
                 {
                     Payload = packetPayload
