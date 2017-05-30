@@ -65,7 +65,7 @@ namespace ublox.Core
         {
             Poll(new MonVerPoll());
         }
-
+        
         public void PollPositionVelocityTime()
         {
             Poll(new NavPvtPoll());
@@ -157,9 +157,7 @@ namespace ublox.Core
 
                         await stream.ReadAsync(sync2, 0, sync2.Length, cancellationToken);
                     }
-
-                    //var context = new SerializationContext {ProtocolVersion = _protocolVersion};
-
+                    
                     var packet = await Serializer.DeserializeAsync<Packet>(stream, cancellationToken)
                         .ConfigureAwait(false);
 
