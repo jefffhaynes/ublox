@@ -17,11 +17,13 @@ namespace ublox.Core
         [Subtype("MessageId", MessageId.ACK_ACK, typeof(Ack))]
         [Subtype("MessageId", MessageId.ACK_NAK, typeof(Nak))]
         [Subtype("MessageId", MessageId.MON_VER, typeof(MonVer))]
-        [Subtype("MessageId", MessageId.MON_VER, typeof(MonVerPoll), BindingMode = BindingMode.OneWay)]
+        [Subtype("MessageId", MessageId.MON_VER, typeof(MonVerPoll), BindingMode = BindingMode.OneWayToSource)]
         [Subtype("MessageId", MessageId.CFG_PRT, typeof(CfgPrt))]
+        [Subtype("MessageId", MessageId.CFG_MSG, typeof(CfgMsg))]
+        [Subtype("MessageId", MessageId.CFG_MSG, typeof(CfgMsgPoll), BindingMode = BindingMode.OneWayToSource)]
         [Subtype("MessageId", MessageId.CFG_TP5, typeof(CfgTp5))]
         [Subtype("MessageId", MessageId.NAV_PVT, typeof(NavPvt))]
-        [Subtype("MessageId", MessageId.NAV_PVT, typeof(NavPvtPoll), BindingMode = BindingMode.OneWay)]
+        [Subtype("MessageId", MessageId.NAV_PVT, typeof(NavPvtPoll), BindingMode = BindingMode.OneWayToSource)]
         public PacketPayload Payload { get; set; }
     }
 }

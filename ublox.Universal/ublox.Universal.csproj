@@ -111,6 +111,9 @@
     <EmbeddedResource Include="Properties\ublox.Universal.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BinarySerializer">
+      <Version>7.5.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.2.3</Version>
     </PackageReference>

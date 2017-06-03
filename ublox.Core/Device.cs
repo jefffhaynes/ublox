@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using BinarySerialization;
+using ublox.Core.Data;
 using ublox.Core.Messages;
 using ublox.Core.Messages.Enums;
 
@@ -20,7 +22,6 @@ namespace ublox.Core
 
         //private readonly TaskCompletionSource<bool> _protocolVersionTaskCompletionSource = new TaskCompletionSource<bool>();
         private const string ProtocolVersionExtensionPrefix = "PROTVER";
-        private string _protocolVersion;
 
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
         
@@ -59,6 +60,31 @@ namespace ublox.Core
             };
 
             return CommandAsync(cfgPrt, cancellationToken);
+        }
+
+        public Task ConfigureMessagesAsync(MessageId message, byte? i2CPeriod, byte? uart1Period, byte? uart2Period,
+            byte? usbPeriod, byte? spiPeriod, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var cfgMsg = new CfgMsg
+            {
+                MessageId = message,
+                PortRates = new List<MessageRate>
+                {
+                    new MessageRate(i2CPeriod ?? 0),
+                    new MessageRate(uart1Period ?? 0),
+                    new MessageRate(uart2Period ?? 0),
+                    new MessageRate(usbPeriod ?? 0),
+                    new MessageRate(spiPeriod ?? 0)
+                }
+            };
+
+            return CommandAsync(cfgMsg, cancellationToken);
+        }
+
+        public Task ConfigureMessagesAsync(MessageId message, byte? i2CPeriod, byte? uart1Period,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return ConfigureMessagesAsync(message, i2CPeriod, uart1Period, null, null, null, cancellationToken);
         }
 
         private void PollVersion()
@@ -182,7 +208,7 @@ namespace ublox.Core
                             if (protVerExtension != null)
                             {
                                 var extensionParts = protVerExtension.Value.Split(' ');
-                                _protocolVersion = extensionParts[1];
+                                var protocolVersion = extensionParts[1];
                                 //_protocolVersionTaskCompletionSource.SetResult(true);
                             }
 

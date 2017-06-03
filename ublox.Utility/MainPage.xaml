@@ -6,100 +6,109 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:ublox.Utility.Converters"
     xmlns:viewModels="using:ublox.Utility.ViewModels"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:ViewModel}">
 
     <Page.Resources>
         <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter"/>
     </Page.Resources>
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-
-        <ListView Margin="6" ItemsSource="{Binding SerialDevices}" SelectedItem="{Binding SelectedSerialDevice, Mode=TwoWay}">
-            <ListView.HeaderTemplate>
-                <DataTemplate>
-                    <TextBlock Margin="6" HorizontalAlignment="Center" Text="No serial devices found"
-                                           Visibility="{Binding SerialDevices.Count, Converter={StaticResource ZeroToVisibilityConverter}, Mode=OneWay}"/>
-                </DataTemplate>
-            </ListView.HeaderTemplate>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-
-        <Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="0,1,0,0">
-            <Grid Margin="6">
+    <Pivot>
+        <PivotItem Header="Connection">
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Grid.Column="0" Grid.Row="0" Margin="6" Text="Baud Rate" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="1" Grid.Row="0" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedBaudRates, Mode=OneWay}" 
-                          SelectedItem="{Binding SelectedSerialDevice.BaudRate, Mode=TwoWay}"/>
-
-                <TextBlock Grid.Column="0" Grid.Row="1" Margin="6" Text="Data Bits" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="1" Grid.Row="1" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedDataBits, Mode=OneWay}" 
-                          SelectedItem="{Binding SelectedSerialDevice.DataBits, Mode=TwoWay}" />
-
-                <TextBlock Grid.Column="0" Grid.Row="2" Margin="6" Text="Stop Bits" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="1" Grid.Row="2" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedStopBits, Mode=OneWay}" 
-                          SelectedItem="{Binding SelectedSerialDevice.StopBits, Mode=TwoWay}" />
-
-                <TextBlock Grid.Column="0" Grid.Row="3" Margin="6" Text="Parity" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="1" Grid.Row="3" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedParity, Mode=OneWay}"
-                          SelectedItem="{Binding SelectedSerialDevice.Parity, Mode=TwoWay}" />
-
-                <TextBlock Grid.Column="0" Grid.Row="4" Margin="6" Text="Handshake" VerticalAlignment="Center"/>
-                <ComboBox Grid.Column="1" Grid.Row="4" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedHandshakes, Mode=OneWay}"
-                          SelectedItem="{Binding SelectedSerialDevice.Handshake, Mode=TwoWay}" />
-
-                <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="6" Content="Connect"
-                                    HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.ConnectCommand}"/>
-            </Grid>
-        </Border>
-        <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1,0,0,0">
-
-
-            <Grid>
-                <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                
-                <TextBlock Margin="6" Text="Latitude"/>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Latitude, Mode=OneWay}"/>
 
-                <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Longitude"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Longitude, Mode=OneWay}"/>
+                <ListView Margin="6" ItemsSource="{Binding SerialDevices}" SelectedItem="{Binding SelectedSerialDevice, Mode=TwoWay}">
+                    <ListView.HeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Margin="6" HorizontalAlignment="Center" Text="No serial devices found"
+                                           Visibility="{Binding SerialDevices.Count, Converter={StaticResource ZeroToVisibilityConverter}, Mode=OneWay}"/>
+                        </DataTemplate>
+                    </ListView.HeaderTemplate>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Border Grid.Row="1" Grid.Column="0" BorderBrush="Gray" BorderThickness="0,1,0,0">
+                    <Grid Margin="6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Column="0" Grid.Row="0" Margin="6" Text="Baud Rate" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="0" Margin="6" 
+                          ItemsSource="{Binding SelectedSerialDevice.SupportedBaudRates, Mode=OneWay}" 
+                          SelectedItem="{Binding SelectedSerialDevice.BaudRate, Mode=TwoWay}"/>
+
+                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="6" Text="Data Bits" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="6" 
+                          ItemsSource="{Binding SelectedSerialDevice.SupportedDataBits, Mode=OneWay}" 
+                          SelectedItem="{Binding SelectedSerialDevice.DataBits, Mode=TwoWay}" />
+
+                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="6" Text="Stop Bits" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="6" 
+                          ItemsSource="{Binding SelectedSerialDevice.SupportedStopBits, Mode=OneWay}" 
+                          SelectedItem="{Binding SelectedSerialDevice.StopBits, Mode=TwoWay}" />
+
+                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="6" Text="Parity" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="6" 
+                          ItemsSource="{Binding SelectedSerialDevice.SupportedParity, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedSerialDevice.Parity, Mode=TwoWay}" />
+
+                        <TextBlock Grid.Column="0" Grid.Row="4" Margin="6" Text="Handshake" VerticalAlignment="Center"/>
+                        <ComboBox Grid.Column="1" Grid.Row="4" Margin="6" 
+                          ItemsSource="{Binding SelectedSerialDevice.SupportedHandshakes, Mode=OneWay}"
+                          SelectedItem="{Binding SelectedSerialDevice.Handshake, Mode=TwoWay}" />
+
+                        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="6" Content="Connect"
+                                    HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.ConnectCommand}"/>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1,0,0,0">
+
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Margin="6" Text="Latitude"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Latitude, Mode=OneWay}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Longitude"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Longitude, Mode=OneWay}"/>
+                    </Grid>
+                </Border>
             </Grid>
-        </Border>
-    </Grid>
+        </PivotItem>
+        <PivotItem Header="Map">
+            <maps:MapControl Name="Map" ZoomLevel="12"
+                             MapServiceToken="Wcf0dHtGY9aJlPhmUz2v~7GihjOqOuh8Vc39WUZrmOw~AlMq2qFm8sYsbPhh9w4GiplybOhtFwPnz7mp5Z1imCjnhGe3w2CMmnKIieDmTTbS"></maps:MapControl>
+        </PivotItem>
+    </Pivot>
 </Page>

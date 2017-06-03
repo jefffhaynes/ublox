@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Devices.Enumeration;
+using Windows.Devices.Geolocation;
 using Windows.Devices.SerialCommunication;
 using Windows.UI.Core;
 using ublox.Core;
@@ -19,6 +20,9 @@ namespace ublox.Utility.ViewModels
         public ObservableCollection<SerialDeviceViewModel> SerialDevices { get; } = new ObservableCollection<SerialDeviceViewModel>();
 
         private Device _gps;
+        private Geopoint _location;
+
+        public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
 
         public ViewModel()
         {
@@ -62,6 +66,18 @@ namespace ublox.Utility.ViewModels
             }
         }
 
+        public Geopoint Location
+        {
+            get => _location;
+
+            set
+            {
+                if (Equals(value, _location)) return;
+                _location = value;
+                OnPropertyChanged();
+            }
+        }
+
         public double Latitude
         {
             get => _latitude;
@@ -96,16 +112,17 @@ namespace ublox.Utility.ViewModels
 
             _gps.PositionVelocityTimeUpdated += async (sender, args) =>
             {
-                await DispatchAsync(CoreDispatcherPriority.Normal, () =>
+                await DispatchAsync(CoreDispatcherPriority.High, () =>
                 {
                     Latitude = args.Latitude;
                     Longitude = args.Longitude;
+                    PositionVelocityTimeUpdated?.Invoke(this, args);
                 });
             };
 
             await _gps.InitializeAsync();
 
-            _gps.PollPositionVelocityTime();
+            await _gps.ConfigureMessagesAsync(MessageId.NAV_PVT, null, 5);
         }
     }
 }
