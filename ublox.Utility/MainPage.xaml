@@ -49,10 +49,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Grid.Column="0" Grid.Row="0" Margin="6" Text="Baud Rate" VerticalAlignment="Center"/>
@@ -60,27 +56,7 @@
                           ItemsSource="{Binding SelectedSerialDevice.SupportedBaudRates, Mode=OneWay}" 
                           SelectedItem="{Binding SelectedSerialDevice.BaudRate, Mode=TwoWay}"/>
 
-                        <TextBlock Grid.Column="0" Grid.Row="1" Margin="6" Text="Data Bits" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Grid.Row="1" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedDataBits, Mode=OneWay}" 
-                          SelectedItem="{Binding SelectedSerialDevice.DataBits, Mode=TwoWay}" />
-
-                        <TextBlock Grid.Column="0" Grid.Row="2" Margin="6" Text="Stop Bits" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Grid.Row="2" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedStopBits, Mode=OneWay}" 
-                          SelectedItem="{Binding SelectedSerialDevice.StopBits, Mode=TwoWay}" />
-
-                        <TextBlock Grid.Column="0" Grid.Row="3" Margin="6" Text="Parity" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Grid.Row="3" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedParity, Mode=OneWay}"
-                          SelectedItem="{Binding SelectedSerialDevice.Parity, Mode=TwoWay}" />
-
-                        <TextBlock Grid.Column="0" Grid.Row="4" Margin="6" Text="Handshake" VerticalAlignment="Center"/>
-                        <ComboBox Grid.Column="1" Grid.Row="4" Margin="6" 
-                          ItemsSource="{Binding SelectedSerialDevice.SupportedHandshakes, Mode=OneWay}"
-                          SelectedItem="{Binding SelectedSerialDevice.Handshake, Mode=TwoWay}" />
-
-                        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" Margin="6" Content="Connect"
+                        <Button Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="6" Content="Connect"
                                     HorizontalAlignment="Stretch" Command="{x:Bind ViewModel.ConnectCommand}"/>
                     </Grid>
                 </Border>
@@ -95,13 +71,21 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Margin="6" Text="Latitude"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.Latitude, Mode=OneWay}"/>
+                        <TextBlock Margin="6" Grid.Row="0" Text="Time" VerticalAlignment="Center" />
+                        <TextBlock Margin="6" Grid.Row="0" Grid.Column="1" Text="{x:Bind ViewModel.TimeString, Mode=OneWay}"/>
+                        
+                        <TextBlock Margin="6" Grid.Row="1" Grid.Column="0" Text="Fix" VerticalAlignment="Center" />
+                        <TextBlock Margin="6" Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.FixType, Mode=OneWay}"/>
 
-                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="6" Text="Longitude"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="{x:Bind ViewModel.Longitude, Mode=OneWay}"/>
+                        <TextBlock Margin="6" Text="Latitude" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" />
+                        <TextBlock Margin="6" Grid.Row="2" Grid.Column="1" Text="{x:Bind ViewModel.Latitude, Mode=OneWay}"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="6" Text="Longitude" VerticalAlignment="Center"/>
+                        <TextBlock Margin="6" Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Longitude, Mode=OneWay}"/>
                     </Grid>
                 </Border>
             </Grid>

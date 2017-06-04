@@ -74,7 +74,8 @@ namespace ublox.Core
                     new MessageRate(uart1Period ?? 0),
                     new MessageRate(uart2Period ?? 0),
                     new MessageRate(usbPeriod ?? 0),
-                    new MessageRate(spiPeriod ?? 0)
+                    new MessageRate(spiPeriod ?? 0),
+                    new MessageRate(0)
                 }
             };
 
@@ -176,7 +177,7 @@ namespace ublox.Core
 
                     while (sync2[0] != 0x62)
                     {
-                        while (sync1[0] != 0xb5 && sync1[0] != 0x35)
+                        while (sync1[0] != 0xb5)
                         {
                             await stream.ReadAsync(sync1, 0, sync1.Length, cancellationToken);
                         }

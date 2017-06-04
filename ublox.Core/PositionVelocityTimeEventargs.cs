@@ -10,6 +10,7 @@ namespace ublox.Core
         internal PositionVelocityTimeEventArgs(NavPvt navPvt)
         {
             DateTime = navPvt.UbloxDateTime.DateTime;
+            TimeAccuracy = navPvt.UbloxDateTime.TimeAccuracy;
             FixType = navPvt.FixType;
             Latitude = navPvt.Latitude;
             Longitude = navPvt.Longitude;
@@ -28,6 +29,7 @@ namespace ublox.Core
         }
 
         public DateTime DateTime { get; }
+        public TimeSpan TimeAccuracy { get; }
         public GnssFixType FixType { get; }
         public double Latitude { get; }
         public double Longitude { get; }

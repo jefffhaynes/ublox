@@ -36,7 +36,7 @@ namespace ublox.Core.Data
         public byte ValidityFlags { get; set; }
         
         [FieldOrder(7)]
-        public uint TimeAccuracy { get; set; }
+        public uint TimeAccuracyNs { get; set; }
 
         [FieldOrder(8)]
         public int Nanosecond { get; set; }
@@ -64,5 +64,8 @@ namespace ublox.Core.Data
                 Nanosecond = (int) (remainder.Ticks / Constants.TicksPerNanosecond);
             }
         }
+
+        [Ignore]
+        public TimeSpan TimeAccuracy => TimeSpan.FromTicks(TimeAccuracyNs * Constants.TicksPerNanosecond);
     }
 }

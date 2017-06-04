@@ -8,6 +8,7 @@ using Windows.Devices.Geolocation;
 using Windows.Devices.SerialCommunication;
 using Windows.UI.Core;
 using ublox.Core;
+using ublox.Core.Messages.Enums;
 using ublox.Universal;
 
 namespace ublox.Utility.ViewModels
@@ -21,6 +22,9 @@ namespace ublox.Utility.ViewModels
 
         private Device _gps;
         private Geopoint _location;
+        private GnssFixType _fixType;
+        private DateTime _time;
+        private TimeSpan _timeAccuracy;
 
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
 
@@ -58,6 +62,10 @@ namespace ublox.Utility.ViewModels
             foreach (var serialDevice in newDevices)
             {
                 SerialDevices.Add(serialDevice);
+                serialDevice.DataBits = 8;
+                serialDevice.Handshake = SerialHandshake.None;
+                serialDevice.Parity = SerialParity.None;
+                serialDevice.StopBits = SerialStopBitCount.One;
             }
 
             foreach (var missingDevice in missingDevices)
@@ -100,6 +108,42 @@ namespace ublox.Utility.ViewModels
             }
         }
 
+        public GnssFixType FixType
+        {
+            get => _fixType;
+            set
+            {
+                if (value == _fixType) return;
+                _fixType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public DateTime Time
+        {
+            get => _time;
+            set
+            {
+                if (value.Equals(_time)) return;
+                _time = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public TimeSpan TimeAccuracy
+        {
+            get => _timeAccuracy;
+            set
+            {
+                if (value.Equals(_timeAccuracy)) return;
+                _timeAccuracy = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(TimeString));
+            }
+        }
+
+        public string TimeString => Time.ToString("M/d/yyyy HH:mm:ss.ffff") + " ± " + TimeAccuracy.ToString("g");
+
         private async void ConnectAsync()
         {
             if (SelectedSerialDevice == null)
@@ -114,15 +158,18 @@ namespace ublox.Utility.ViewModels
             {
                 await DispatchAsync(CoreDispatcherPriority.High, () =>
                 {
+                    Time = args.DateTime;
+                    TimeAccuracy = args.TimeAccuracy;
                     Latitude = args.Latitude;
                     Longitude = args.Longitude;
+                    FixType = args.FixType;
                     PositionVelocityTimeUpdated?.Invoke(this, args);
                 });
             };
 
             await _gps.InitializeAsync();
 
-            await _gps.ConfigureMessagesAsync(MessageId.NAV_PVT, null, 5);
+            await _gps.ConfigureMessagesAsync(MessageId.NAV_PVT, null, 1);
         }
     }
 }
