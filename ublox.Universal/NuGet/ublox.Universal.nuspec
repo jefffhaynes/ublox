@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata minClientVersion="3.2">
-    <id>ublox.Universal</id>
+    <id>ublox</id>
     <version>0.1</version>
     <authors>Jeff Haynes</authors>
     <owners></owners>
