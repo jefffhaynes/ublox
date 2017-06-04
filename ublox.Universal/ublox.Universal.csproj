@@ -125,6 +125,10 @@
       <Name>ublox.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="NuGet\CreatePackage.ps1" />
+    <None Include="NuGet\ublox.Universal.nuspec" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

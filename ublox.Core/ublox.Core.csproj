@@ -4,6 +4,11 @@
     <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>ublox.Core</AssemblyName>
     <RootNamespace>ublox.Core</RootNamespace>
+    <Description>Core definition of the UBX protocol</Description>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>0.1</Version>
+    <Authors>Jeff Haynes</Authors>
+    <Company />
   </PropertyGroup>
 
   <ItemGroup>

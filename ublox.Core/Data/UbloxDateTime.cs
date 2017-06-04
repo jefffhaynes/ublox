@@ -60,6 +60,12 @@ namespace ublox.Core.Data
                 Minute = (byte) value.Minute;
                 Second = (byte) value.Second;
 
+                // ignore leap seconds so we don't break DateTime
+                if (Second > 59)
+                {
+                    Second = 59;
+                }
+
                 var remainder = value - new DateTime(Year, Month, Day, Hour, Minute, Second);
                 Nanosecond = (int) (remainder.Ticks / Constants.TicksPerNanosecond);
             }
