@@ -73,6 +73,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <TextBlock Margin="6" Grid.Row="0" Text="Time" VerticalAlignment="Center" />
@@ -86,12 +87,15 @@
 
                         <TextBlock Grid.Row="3" Grid.Column="0" Margin="6" Text="Longitude" VerticalAlignment="Center"/>
                         <TextBlock Margin="6" Grid.Row="3" Grid.Column="1" Text="{x:Bind ViewModel.Longitude, Mode=OneWay}"/>
+
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="6" Text="Satellites" VerticalAlignment="Center"/>
+                        <TextBlock Margin="6" Grid.Row="4" Grid.Column="1" Text="{x:Bind ViewModel.SatelliteCount, Mode=OneWay}"/>
                     </Grid>
                 </Border>
             </Grid>
         </PivotItem>
         <PivotItem Header="Map">
-            <maps:MapControl Name="Map" ZoomLevel="12"
+            <maps:MapControl Name="Map" ZoomLevel="16"
                              MapServiceToken="Wcf0dHtGY9aJlPhmUz2v~7GihjOqOuh8Vc39WUZrmOw~AlMq2qFm8sYsbPhh9w4GiplybOhtFwPnz7mp5Z1imCjnhGe3w2CMmnKIieDmTTbS"></maps:MapControl>
         </PivotItem>
     </Pivot>

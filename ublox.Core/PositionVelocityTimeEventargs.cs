@@ -33,7 +33,7 @@ namespace ublox.Core
         public GnssFixType FixType { get; }
         public double Latitude { get; }
         public double Longitude { get; }
-        public int SatelliteCount { get; }
+        public uint SatelliteCount { get; }
         public Distance Height { get; }
         public Distance HeightAboveMeanSeaLevel { get; }
         public Distance HorizontalAccuracyEstimate { get; }

@@ -25,6 +25,7 @@ namespace ublox.Utility.ViewModels
         private GnssFixType _fixType;
         private DateTime _time;
         private TimeSpan _timeAccuracy;
+        private uint _satelliteCount;
 
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
 
@@ -144,6 +145,17 @@ namespace ublox.Utility.ViewModels
 
         public string TimeString => Time.ToString("M/d/yyyy HH:mm:ss.ffff") + " ± " + TimeAccuracy.ToString("g");
 
+        public uint SatelliteCount
+        {
+            get => _satelliteCount;
+            set
+            {
+                if (value == _satelliteCount) return;
+                _satelliteCount = value;
+                OnPropertyChanged();
+            }
+        }
+
         private async void ConnectAsync()
         {
             if (SelectedSerialDevice == null)
@@ -163,6 +175,7 @@ namespace ublox.Utility.ViewModels
                     Latitude = args.Latitude;
                     Longitude = args.Longitude;
                     FixType = args.FixType;
+                    SatelliteCount = args.SatelliteCount;
                     PositionVelocityTimeUpdated?.Invoke(this, args);
                 });
             };
