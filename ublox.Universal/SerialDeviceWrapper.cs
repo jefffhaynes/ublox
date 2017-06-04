@@ -29,12 +29,6 @@ namespace ublox.Universal
 
         public async Task<byte[]> ReadAsync(uint count, CancellationToken cancellationToken)
         {
-            //var data = new byte[count];
-            //var buffer = data.AsBuffer();
-            //await _serialDevice.InputStream.ReadAsync(buffer, count, InputStreamOptions.Partial).AsTask(cancellationToken)
-            //    .ConfigureAwait(false);
-            //return data;
-
             using (var reader = new DataReader(_serialDevice.InputStream))
             {
                 var read = await reader.LoadAsync(count).AsTask(cancellationToken).ConfigureAwait(false);
