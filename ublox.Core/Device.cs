@@ -9,6 +9,10 @@ using ublox.Core.Data;
 using ublox.Core.Messages;
 using ublox.Core.Messages.Enums;
 
+#if DEBUG
+using System.IO;
+#endif
+
 namespace ublox.Core
 {
     public class Device : IDisposable
@@ -183,6 +187,8 @@ namespace ublox.Core
 
                         await stream.ReadAsync(sync2, 0, sync2.Length, cancellationToken);
                     }
+
+                    Debug.WriteLine("Found sync");
                     
                     var packet = await Serializer.DeserializeAsync<Packet>(stream, cancellationToken)
                         .ConfigureAwait(false);

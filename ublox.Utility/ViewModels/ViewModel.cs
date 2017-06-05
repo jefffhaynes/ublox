@@ -182,7 +182,7 @@ namespace ublox.Utility.ViewModels
 
             await _gps.InitializeAsync();
 
-            await _gps.ConfigureMessagesAsync(MessageId.NAV_PVT, null, 5);
+            await _gps.ConfigureMessagesAsync(MessageId.NAV_PVT, null, 1);
         }
     }
 }
