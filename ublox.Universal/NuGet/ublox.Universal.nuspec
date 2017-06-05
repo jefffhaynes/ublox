@@ -2,13 +2,13 @@
 <package >
   <metadata minClientVersion="3.2">
     <id>ublox</id>
-    <version>0.1</version>
+    <version>0.1.1</version>
     <authors>Jeff Haynes</authors>
     <owners></owners>
     <projectUrl>https://github.com/jefffhaynes/ublox</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A UWP library for controlling ublox GPS modules using the UBX protocol.</description>
-    <releaseNotes>Initial release for UWP.  Limited functionality.</releaseNotes>
+    <releaseNotes>Fixes issue when compiling as native.</releaseNotes>
     <tags>ublox UBX GPS</tags>
     <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
     <dependencies>
