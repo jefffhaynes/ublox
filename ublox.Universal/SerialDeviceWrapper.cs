@@ -7,15 +7,26 @@ using ublox.Core;
 
 namespace ublox.Universal
 {
+    /// <summary>
+    /// A wrapper for the <see cref="SerialDevice">SerialDevice</see> class that can be used with the u-blox <see cref="Device">Device</see> class.
+    /// </summary>
     public class SerialDeviceWrapper : ISerialDevice
     {
         private readonly SerialDevice _serialDevice;
 
+        /// <summary>
+        /// Instantiates a new SerialDeviceWrapper.
+        /// </summary>
+        /// <param name="serialDevice"></param>
         public SerialDeviceWrapper(SerialDevice serialDevice)
         {
             _serialDevice = serialDevice;
         }
 
+        /// <summary>
+        /// Writes data to the serial device.
+        /// </summary>
+        /// <param name="data"></param>
         public void Write(byte[] data)
         {
             using (var writer = new DataWriter(_serialDevice.OutputStream))
@@ -26,6 +37,12 @@ namespace ublox.Universal
             }
         }
 
+        /// <summary>
+        /// Reads data from the serial device.
+        /// </summary>
+        /// <param name="count"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
         public async Task<byte[]> ReadAsync(uint count, CancellationToken cancellationToken)
         {
             using (var reader = new DataReader(_serialDevice.InputStream))
