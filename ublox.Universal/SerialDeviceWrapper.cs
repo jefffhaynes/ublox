@@ -30,8 +30,8 @@ namespace ublox.Universal
         {
             using (var reader = new DataReader(_serialDevice.InputStream))
             {
-                var read = await reader.LoadAsync(count).AsTask(cancellationToken).ConfigureAwait(false);
-
+                var read = await reader.LoadAsync(count);
+                
                 var data = new byte[read];
                 reader.ReadBytes(data);
                 reader.DetachStream();

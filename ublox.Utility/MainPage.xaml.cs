@@ -41,7 +41,7 @@ namespace ublox.Utility
                 _icon.Location = location;
                 
                 var cepPoints = location.GetCirclePoints(args.HorizontalAccuracyEstimate.TotalMeters);
-                _cep.Path = new Geopath(cepPoints.Select(p => p.Position));
+                _cep.Path = new Geopath(cepPoints.Select(p => p.Position).ToArray());
 
                 if (!Map.MapElements.Contains(_cep))
                 {
