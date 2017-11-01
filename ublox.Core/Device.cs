@@ -25,7 +25,9 @@ namespace ublox.Core
 
         //private readonly TaskCompletionSource<bool> _protocolVersionTaskCompletionSource = new TaskCompletionSource<bool>();
         private const string ProtocolVersionExtensionPrefix = "PROTVER";
-        
+
+        public event EventHandler<RawPacketHandlerEventArgs> RawPacketHandler;
+
         public event EventHandler<HighNavRatePositionVelocityTimeEventargs> HighNavRatePositionVelocityTimeUpdated;
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
 
@@ -253,6 +255,7 @@ namespace ublox.Core
                                 break;
                             }
                     }
+                    RawPacketHandler?.Invoke(this, new RawPacketHandlerEventArgs(messageId, packet.Content.Payload));
                 }
             } while (!cancellationToken.IsCancellationRequested && !once);
         }
