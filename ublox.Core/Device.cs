@@ -25,12 +25,13 @@ namespace ublox.Core
 
         //private readonly TaskCompletionSource<bool> _protocolVersionTaskCompletionSource = new TaskCompletionSource<bool>();
         private const string ProtocolVersionExtensionPrefix = "PROTVER";
-
-        public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
         
+        public event EventHandler<HighNavRatePositionVelocityTimeEventargs> HighNavRatePositionVelocityTimeUpdated;
+        public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
+
         public Device(ISerialDevice serialDevice)
         {
-#if DEBUG
+#if false
             Serializer.MemberDeserialized += OnMemberDeserialized;
             Serializer.MemberDeserializing += OnMemberDeserializing;
             Serializer.MemberSerialized += OnMemberSerialized;
@@ -65,6 +66,16 @@ namespace ublox.Core
             return CommandAsync(cfgPrt, cancellationToken);
         }
 
+        public Task ConfigureHighNavigationRateAsync(byte rate, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            var cfgHnr = new  CfgHnr
+            {
+                NavRate = rate
+            };
+
+            return CommandAsync(cfgHnr, cancellationToken);
+        }
+
         public Task ConfigureMessagesAsync(MessageId message, byte? i2CPeriod, byte? uart1Period, byte? uart2Period,
             byte? usbPeriod, byte? spiPeriod, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -95,10 +106,15 @@ namespace ublox.Core
         {
             Poll(new MonVerPoll());
         }
-        
+
         public void PollPositionVelocityTime()
         {
             Poll(new NavPvtPoll());
+        }
+
+        public void PollHighNavRatePositionVelocityTime()
+        {
+            Poll(new HnrPvtPoll());
         }
 
         private async Task CommandAsync(PacketPayload payload, CancellationToken cancellationToken)
@@ -228,6 +244,14 @@ namespace ublox.Core
 
                             break;
                         }
+
+                        case MessageId.HNR_PVT:
+                            {
+                                HighNavRatePositionVelocityTimeUpdated?.Invoke(this,
+                                    new HighNavRatePositionVelocityTimeEventargs((HnrPvt)packet.Content.Payload));
+
+                                break;
+                            }
                     }
                 }
             } while (!cancellationToken.IsCancellationRequested && !once);
