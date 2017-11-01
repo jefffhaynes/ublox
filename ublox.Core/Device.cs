@@ -33,7 +33,7 @@ namespace ublox.Core
 
         public Device(ISerialDevice serialDevice)
         {
-#if false
+#if DEBUG
             Serializer.MemberDeserialized += OnMemberDeserialized;
             Serializer.MemberDeserializing += OnMemberDeserializing;
             Serializer.MemberSerialized += OnMemberSerialized;
