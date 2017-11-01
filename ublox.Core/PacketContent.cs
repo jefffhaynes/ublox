@@ -27,6 +27,8 @@ namespace ublox.Core
         [Subtype("MessageId", MessageId.CFG_HNR, typeof(CfgHnr))]
         [Subtype("MessageId", MessageId.HNR_PVT, typeof(HnrPvt))]
         [Subtype("MessageId", MessageId.HNR_PVT, typeof(HnrPvtPoll), BindingMode = BindingMode.OneWayToSource)]
+        [Subtype("MessageId", MessageId.ESF_STATUS, typeof(EsfStatus))]
+        [Subtype("MessageId", MessageId.ESF_STATUS, typeof(EsfStatusPoll), BindingMode = BindingMode.OneWayToSource)]
         public PacketPayload Payload { get; set; }
     }
 }
