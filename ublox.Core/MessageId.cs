@@ -373,6 +373,11 @@
         CFG_TXSLOT = 0x0653,
 
         /// <summary>
+        /// CFG-HNR message
+        /// </summary>
+        CFG_HNR = 0x0655,
+
+        /// <summary>
         /// CFG-PWR message
         /// </summary>
         CFG_PWR = 0x0657,
@@ -675,6 +680,11 @@
         /// <summary>
         /// SEC-UNIQID message
         /// </summary>
-        SEC_UNIQID = 0x2703
+        SEC_UNIQID = 0x2703,
+
+        /// <summary>
+        /// HNR-PVT message
+        /// </summary>
+        HNR_PVT = 0x2800
     }
 }
