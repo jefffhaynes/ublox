@@ -13,21 +13,21 @@ namespace ublox.Core.Messages.Enums
         /// <summary>
         ///  Bad measurements detected
         /// </summary>
-        badMeas = 1,
+        BadMeasurements = 1,
 
         /// <summary>
         /// Bad measurement time-tags detected
         /// </summary>
-        badTTag = 2,
+        BadTimeTags = 2,
 
         /// <summary>
         ///  Missing or time-misaligned measurements detected
         /// </summary>
-        missingMeas = 4,
+        MissingMeasurements = 4,
 
         /// <summary>
         /// High measurement noise-level detected
         /// </summary>
-        noisyMeas = 8
+        NoisyMeasurements = 8
     }
 }
