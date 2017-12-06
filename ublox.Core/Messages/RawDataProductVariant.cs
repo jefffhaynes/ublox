@@ -8,20 +8,16 @@ namespace ublox.Core.Messages
     public class RawDataProductVariant : PacketPayload
     {
         [FieldOrder(0)]
-        [SerializeAs(SerializedType.Float8)]
         public double ReceiverTimeOfWeek { get; set; }
 
         [FieldOrder(1)]
-        [SerializeAs(SerializedType.UInt2)]
-        public int GpsWeekNumber { get; set; }
+        public ushort GpsWeekNumber { get; set; }
 
         [FieldOrder(2)]
-        [SerializeAs(SerializedType.Int1)]
-        public int GpsLeapSeconds { get; set; }
+        public byte GpsLeapSeconds { get; set; }
 
         [FieldOrder(3)]
-        [SerializeAs(SerializedType.UInt1)]
-        public int NumberOfMeasurements { get; set; }
+        public byte NumberOfMeasurements { get; set; }
 
         [FieldOrder(4)]
         public byte ReceiverTrackingStatus { get; set; }
@@ -39,40 +35,31 @@ namespace ublox.Core.Messages
     {
 
         [FieldOrder(0)]
-        [SerializeAs(SerializedType.Float8)]
         public double PrMes { get; set; }
 
         [FieldOrder(1)]
-        [SerializeAs(SerializedType.Float8)]
         public double CpMes { get; set; }
 
         [FieldOrder(2)]
-        [SerializeAs(SerializedType.Float4)]
         public float DoMes { get; set; }
 
         [FieldOrder(3)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint GNSSId { get; set; }
+        public byte GNSSId { get; set; }
 
         [FieldOrder(4)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint SvId { get; set; }
+        public byte SvId { get; set; }
 
         [FieldOrder(5)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint Reserved { get; set; }
+        public byte Reserved { get; set; }
 
         [FieldOrder(6)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint FrequId { get; set; }
+        public byte FrequId { get; set; }
 
         [FieldOrder(7)]
-        [SerializeAs(SerializedType.UInt2)]
-        public uint LockTime { get; set; }
+        public ushort LockTime { get; set; }
 
         [FieldOrder(8)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint Cno { get; set; }
+        public byte Cno { get; set; }
 
         [FieldOrder(9)]
         public byte PrStdev { get; set; }
@@ -99,12 +86,10 @@ namespace ublox.Core.Messages
         }
 
         [FieldOrder(12)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint TrkStat { get; set; }
+        public byte TrkStat { get; set; }
 
         [FieldOrder(13)]
-        [SerializeAs(SerializedType.UInt1)]
-        public uint Reserved2 { get; set; }
+        public byte Reserved2 { get; set; }
 
     }
 }

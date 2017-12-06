@@ -13,12 +13,12 @@ namespace ublox.Core
         /// <summary>
         /// GPS week number in receiver local time.
         /// </summary>
-        public int GpsWeekNumber { get; }
+        public ushort GpsWeekNumber { get; }
 
         /// <summary>
         /// GPS leap seconds (GPS-UTC). This field represents the receiver's best knowledge of the leap seconds offset.A flag is given in the recStat bitfield to indicate if the leap seconds are known.
         /// </summary>
-        public int GpsLeapSeconds { get; }
+        public byte GpsLeapSeconds { get; }
 
         /// <summary>
         /// Receiver tracking status bitfield
@@ -53,32 +53,32 @@ namespace ublox.Core
         /// <summary>
         /// Doppler measurement (positive sign for approaching satellites) [Hz]
         /// </summary>
-        public double DopplerMeasurement { get; }
+        public float DopplerMeasurement { get; }
 
         /// <summary>
         /// GNSS identifier (see Satellite Numbering for a list of identifiers)
         /// </summary>
-        public uint GNSSIdentifier { get; }
+        public byte GNSSIdentifier { get; }
 
         /// <summary>
         /// Satellite identifier (see Satellite Numbering)
         /// </summary>
-        public uint SatelliteIdentifier { get; }
+        public byte SatelliteIdentifier { get; }
 
         /// <summary>
         /// Only used for GLONASS: This is the frequency slot + 7 (range from 0 to 13)
         /// </summary>
-        public uint FrequencyId { get; }
+        public byte FrequencyId { get; }
 
         /// <summary>
         /// Carrier phase locktime counter (maximum 64500ms)
         /// </summary>
-        public uint CarrierPhaseLocktimeCounter { get; }
+        public ushort CarrierPhaseLocktimeCounter { get; }
 
         /// <summary>
         /// Carrier-to-noise density ratio (signal strength) [dB-Hz]
         /// </summary>
-        public uint CarrierToNoiseDensityRatio { get; }
+        public byte CarrierToNoiseDensityRatio { get; }
 
         /// <summary>
         /// Estimated pseudorange measurement standard deviation
