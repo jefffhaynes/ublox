@@ -27,7 +27,7 @@ namespace ublox.Core
 
         public RawDataProductVariantMeasure[] Measures { get; }
 
-        internal RawDataProductVariantEventargs(Messages.RXM_RAWX p)
+        internal RawDataProductVariantEventargs(Messages.RawDataProductVariant p)
         {
             ReceiverTimeOfWeek = p.ReceiverTimeOfWeek;
             GpsWeekNumber = p.GpsWeekNumber;
@@ -100,7 +100,7 @@ namespace ublox.Core
         /// </summary>
         public byte TrackingStatusBitfield { get; set; }
 
-        internal RawDataProductVariantMeasure(Messages.Measure m)
+        internal RawDataProductVariantMeasure(Messages.RawDataProductVariantMeasure m)
         {
             Pseudorange = m.PrMes;
             CarrierPhaseMeasurement = m.CpMes;

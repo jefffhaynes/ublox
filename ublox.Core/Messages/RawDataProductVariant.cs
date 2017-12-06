@@ -5,7 +5,7 @@ using ublox.Core.Messages.Enums;
 
 namespace ublox.Core.Messages
 {
-    public class RXM_RAWX : PacketPayload
+    public class RawDataProductVariant : PacketPayload
     {
         [FieldOrder(0)]
         [SerializeAs(SerializedType.Float8)]
@@ -32,10 +32,10 @@ namespace ublox.Core.Messages
 
         [FieldOrder(6)]
         [FieldCount(nameof(NumberOfMeasurements))]
-        public List<Measure> Measures { get; set; }
+        public List<RawDataProductVariantMeasure> Measures { get; set; }
     }
 
-    public class Measure
+    public class RawDataProductVariantMeasure
     {
 
         [FieldOrder(0)]

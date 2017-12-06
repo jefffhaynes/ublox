@@ -241,7 +241,7 @@ namespace ublox.Core
                             }
                         case MessageId.RXM_RAWX:
                             {
-                                RawDataProductVariantUpdated?.Invoke(this, new RawDataProductVariantEventargs((RXM_RAWX)packet.Content.Payload));
+                                RawDataProductVariantUpdated?.Invoke(this, new RawDataProductVariantEventargs((RawDataProductVariant)packet.Content.Payload));
                                 break;
                             }
 
