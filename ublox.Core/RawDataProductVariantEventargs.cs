@@ -4,7 +4,7 @@ using ublox.Core.Data;
 
 namespace ublox.Core
 {
-    public class RXM_RAWXEventargs : EventArgs
+    public class RawDataProductVariantEventargs : EventArgs
     {
         /// <summary>
         /// Measurement time of week in receiver local time approximately aligned to the GPS time system.The receiver local time of week, week number and leap second information can be used to translate the time to other time systems.        /// More information about the difference in time systems can be found in RINEX 3 documentation.For a receiver operating in GLONASS only mode, UTC time can be determined by subtracting the leapS field from GPS time regardless of whether the GPS leap seconds are valid.        /// </summary>
@@ -25,21 +25,21 @@ namespace ublox.Core
         /// </summary>
         public byte ReceiverTrackingStatus { get; }
 
-        public RXM_RAWXMeasure[] Measures { get; }
+        public RawDataProductVariantMeasure[] Measures { get; }
 
-        internal RXM_RAWXEventargs(Messages.RXM_RAWX p)
+        internal RawDataProductVariantEventargs(Messages.RXM_RAWX p)
         {
             ReceiverTimeOfWeek = p.ReceiverTimeOfWeek;
             GpsWeekNumber = p.GpsWeekNumber;
             GpsLeapSeconds = p.GpsLeapSeconds;
             ReceiverTrackingStatus = p.ReceiverTrackingStatus;
 
-            Measures = p.Measures.Select(m => new RXM_RAWXMeasure(m)).ToArray();
+            Measures = p.Measures.Select(m => new RawDataProductVariantMeasure(m)).ToArray();
         }
 
     }
 
-    public class RXM_RAWXMeasure
+    public class RawDataProductVariantMeasure
     {
         /// <summary>
         /// Pseudorange measurement [m]. GLONASS inter frequency channel delays are compensated with an internal calibration table.
@@ -100,7 +100,7 @@ namespace ublox.Core
         /// </summary>
         public byte TrackingStatusBitfield { get; set; }
 
-        internal RXM_RAWXMeasure(Messages.Measure m)
+        internal RawDataProductVariantMeasure(Messages.Measure m)
         {
             Pseudorange = m.PrMes;
             CarrierPhaseMeasurement = m.CpMes;
