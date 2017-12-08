@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace ublox.Core
@@ -26,7 +27,7 @@ namespace ublox.Core
         /// </summary>
         public byte ReceiverTrackingStatus { get; }
 
-        public RawDataProductVariantMeasure[] Measurements { get; }
+        public List<RawDataProductVariantMeasure> Measurements { get; }
 
         internal RawMeasurementDataEventArgs(Messages.RxmRawx rxmRawx)
         {
@@ -35,7 +36,7 @@ namespace ublox.Core
             GpsLeapSeconds = rxmRawx.GpsLeapSeconds;
             ReceiverTrackingStatus = rxmRawx.ReceiverTrackingStatus;
 
-            Measurements = rxmRawx.Measurements.Select(m => new RawDataProductVariantMeasure(m)).ToArray();
+            Measurements = rxmRawx.Measurements.Select(m => new RawDataProductVariantMeasure(m)).ToList();
         }
 
     }
