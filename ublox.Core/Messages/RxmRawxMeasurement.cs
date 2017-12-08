@@ -4,7 +4,6 @@ namespace ublox.Core.Messages
 {
     public class RxmRawxMeasurement
     {
-
         [FieldOrder(0)]
         public double PseudorangeMeasurement { get; set; }
 
@@ -61,6 +60,5 @@ namespace ublox.Core.Messages
 
         [FieldOrder(13)]
         public byte Reserved2 { get; set; }
-
     }
 }

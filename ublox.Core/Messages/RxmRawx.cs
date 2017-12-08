@@ -21,7 +21,7 @@ namespace ublox.Core.Messages
         public byte ReceiverTrackingStatus { get; set; }
 
         [FieldOrder(5)]
-        [FieldCount(3)]
+        [FieldLength(3)]
         public byte[] Reserved { get; set; }
 
         [FieldOrder(6)]
