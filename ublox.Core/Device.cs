@@ -30,7 +30,7 @@ namespace ublox.Core
 
         public event EventHandler<HighNavRatePositionVelocityTimeEventargs> HighNavRatePositionVelocityTimeUpdated;
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
-        public event EventHandler<RawDataProductVariantEventargs> RawDataProductVariantUpdated;
+        public event EventHandler<RawMeasurementDataEventArgs> RawDataProductVariantUpdated;
 
         public Device(ISerialDevice serialDevice)
         {
@@ -241,7 +241,7 @@ namespace ublox.Core
                             }
                         case MessageId.RXM_RAWX:
                             {
-                                RawDataProductVariantUpdated?.Invoke(this, new RawDataProductVariantEventargs((RawDataProductVariant)packet.Content.Payload));
+                                RawDataProductVariantUpdated?.Invoke(this, new RawMeasurementDataEventArgs((RxmRawx)packet.Content.Payload));
                                 break;
                             }
 
