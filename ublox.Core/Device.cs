@@ -28,7 +28,7 @@ namespace ublox.Core
 
         public event EventHandler<RawPacketHandlerEventArgs> RawPacketHandler;
 
-        public event EventHandler<HighNavRatePositionVelocityTimeEventargs> HighNavRatePositionVelocityTimeUpdated;
+        public event EventHandler<HighNavRatePositionVelocityTimeEventArgs> HighNavRatePositionVelocityTimeUpdated;
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
         public event EventHandler<RawMeasurementDataEventArgs> RawDataProductVariantUpdated;
 
@@ -256,7 +256,7 @@ namespace ublox.Core
                         case MessageId.HNR_PVT:
                             {
                                 HighNavRatePositionVelocityTimeUpdated?.Invoke(this,
-                                    new HighNavRatePositionVelocityTimeEventargs((HnrPvt)packet.Content.Payload));
+                                    new HighNavRatePositionVelocityTimeEventArgs((HnrPvt)packet.Content.Payload));
 
                                 break;
                             }

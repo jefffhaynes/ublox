@@ -1,13 +1,11 @@
-﻿using System;
-using ublox.Core.Data;
+﻿using ublox.Core.Data;
 using ublox.Core.Messages;
-using ublox.Core.Messages.Enums;
 
 namespace ublox.Core
 {
-    public class HighNavRatePositionVelocityTimeEventargs : BasePositionVelocityTimeEventArgs
+    public class HighNavRatePositionVelocityTimeEventArgs : BasePositionVelocityTimeEventArgs
     {
-        internal HighNavRatePositionVelocityTimeEventargs(HnrPvt hnrPvt) : base(hnrPvt)
+        internal HighNavRatePositionVelocityTimeEventArgs(HnrPvt hnrPvt) : base(hnrPvt)
         {
             Speed = hnrPvt.Speed;
         }
