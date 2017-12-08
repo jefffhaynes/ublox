@@ -1,7 +1,6 @@
 ﻿using System;
 using ublox.Core.Data;
-using ublox.Core.Messages;
-using ublox.Core.Messages.Enums;
+using ublox.Core.Messages;  
 
 namespace ublox.Core
 {

@@ -28,8 +28,9 @@ namespace ublox.Core
 
         public event EventHandler<RawPacketHandlerEventArgs> RawPacketHandler;
 
-        public event EventHandler<HighNavRatePositionVelocityTimeEventargs> HighNavRatePositionVelocityTimeUpdated;
+        public event EventHandler<HighNavRatePositionVelocityTimeEventArgs> HighNavRatePositionVelocityTimeUpdated;
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
+        public event EventHandler<RawMeasurementDataEventArgs> RawDataProductVariantUpdated;
 
         public Device(ISerialDevice serialDevice)
         {
@@ -207,7 +208,7 @@ namespace ublox.Core
                     }
 
                     Debug.WriteLine("Found sync");
-                    
+
                     var packet = await Serializer.DeserializeAsync<Packet>(stream, cancellationToken)
                         .ConfigureAwait(false);
 
@@ -220,37 +221,42 @@ namespace ublox.Core
                         case MessageId.ACK_NAK:
                             _commandCompletionSource?.SetResult(packet);
                             break;
-            
-                        case MessageId.MON_VER:
-                        {
-                            var monVer = (MonVer) packet.Content.Payload;
-                            var extensions = monVer.Extensions;
-                            var protVerExtension =
-                                extensions.FirstOrDefault(
-                                    extension => extension.Value.StartsWith(ProtocolVersionExtensionPrefix));
 
-                            if (protVerExtension != null)
+                        case MessageId.MON_VER:
                             {
-                                var extensionParts = protVerExtension.Value.Split(' ');
-                                var protocolVersion = extensionParts[1];
-                                //_protocolVersionTaskCompletionSource.SetResult(true);
+                                var monVer = (MonVer)packet.Content.Payload;
+                                var extensions = monVer.Extensions;
+                                var protVerExtension =
+                                    extensions.FirstOrDefault(
+                                        extension => extension.Value.StartsWith(ProtocolVersionExtensionPrefix));
+
+                                if (protVerExtension != null)
+                                {
+                                    var extensionParts = protVerExtension.Value.Split(' ');
+                                    var protocolVersion = extensionParts[1];
+                                    //_protocolVersionTaskCompletionSource.SetResult(true);
+                                }
+
+                                break;
+                            }
+                        case MessageId.RXM_RAWX:
+                            {
+                                RawDataProductVariantUpdated?.Invoke(this, new RawMeasurementDataEventArgs((RxmRawx)packet.Content.Payload));
+                                break;
                             }
 
-                            break;
-                        }
-
                         case MessageId.NAV_PVT:
-                        {
-                            PositionVelocityTimeUpdated?.Invoke(this,
-                                new PositionVelocityTimeEventArgs((NavPvt)packet.Content.Payload));
+                            {
+                                PositionVelocityTimeUpdated?.Invoke(this,
+                                    new PositionVelocityTimeEventArgs((NavPvt)packet.Content.Payload));
 
-                            break;
-                        }
+                                break;
+                            }
 
                         case MessageId.HNR_PVT:
                             {
                                 HighNavRatePositionVelocityTimeUpdated?.Invoke(this,
-                                    new HighNavRatePositionVelocityTimeEventargs((HnrPvt)packet.Content.Payload));
+                                    new HighNavRatePositionVelocityTimeEventArgs((HnrPvt)packet.Content.Payload));
 
                                 break;
                             }

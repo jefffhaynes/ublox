@@ -1,7 +1,4 @@
 ﻿using System;
-using ublox.Core.Data;
-using ublox.Core.Messages;
-using ublox.Core.Messages.Enums;
 
 namespace ublox.Core
 {
@@ -9,8 +6,8 @@ namespace ublox.Core
     {
         internal RawPacketHandlerEventArgs(MessageId messageId, PacketPayload packetPayload)
         {
-            this.MessageId = messageId;
-            this.PacketPayload = packetPayload;
+            MessageId = messageId;
+            PacketPayload = packetPayload;
         }
     
         public MessageId MessageId { get; }

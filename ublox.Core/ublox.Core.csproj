@@ -6,9 +6,10 @@
     <RootNamespace>ublox.Core</RootNamespace>
     <Description>Core definition of the UBX protocol</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.1</Version>
+    <Version>0.2</Version>
     <Authors>Jeff Haynes</Authors>
     <Company />
+    <PackageReleaseNotes>Adds RXM-RAWX</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
