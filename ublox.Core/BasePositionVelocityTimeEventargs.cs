@@ -12,6 +12,7 @@ namespace ublox.Core
             GpsTimeOfWeek = navPvt.GpsTimeOfWeek;
             DateTime = navPvt.UbloxDateTime.DateTime;
             FixType = navPvt.FixType;
+            Flags = navPvt.Flags;
             Latitude = navPvt.Latitude;
             Longitude = navPvt.Longitude;
             Height = navPvt.Height;
@@ -30,6 +31,7 @@ namespace ublox.Core
             GpsTimeOfWeek = hnrPvt.GpsTimeOfWeek;
             DateTime = hnrPvt.UbloxDateTime.DateTime;
             FixType = hnrPvt.FixType;
+            Flags = hnrPvt.Flags;
             Latitude = hnrPvt.Latitude;
             Longitude = hnrPvt.Longitude;
             Height = hnrPvt.Height;
@@ -46,6 +48,7 @@ namespace ublox.Core
         public GpsTimeOfWeek GpsTimeOfWeek { get; }
         public DateTime DateTime { get; }
         public GnssFixType FixType { get; }
+        public byte Flags { get; set; }
         public double Latitude { get; }
         public double Longitude { get; }
         public Distance Height { get; }

@@ -12,8 +12,10 @@ namespace ublox.Core
             SatelliteCount = navPvt.SatelliteCount;
             Velocity = navPvt.Velocity;
             PositionDilutionOfPrecision = navPvt.PositionDilutionOfPrecision;
+            Flags2 = navPvt.Flags2;
         }
-        
+
+        public byte Flags2 { get; set; }
         public TimeSpan TimeAccuracy { get; }
         public uint SatelliteCount { get; }
         public Velocity3 Velocity { get; }
