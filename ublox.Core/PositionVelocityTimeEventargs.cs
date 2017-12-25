@@ -15,7 +15,7 @@ namespace ublox.Core
             Flags2 = navPvt.Flags2;
         }
 
-        public byte Flags2 { get; set; }
+        public byte Flags2 { get; }
         public TimeSpan TimeAccuracy { get; }
         public uint SatelliteCount { get; }
         public Velocity3 Velocity { get; }
