@@ -49,10 +49,16 @@ namespace ublox.Core
             _listenCancellationTokenSource.Cancel();
         }
 
+        [Obsolete("Use StartListeningAsync and ConfigurePortAsync as needed")]
         public async Task InitializeAsync()
         {
-            await Task.Run(() => ListenAsync());
+            await StartListeningAsync();
             await ConfigurePortAsync(UartPort.Uart1, 9600, PortInProtocols.Ubx, PortOutProtocols.Ubx);
+        }
+
+        public async Task StartListeningAsync()
+        {
+            await Task.Run(() => ListenAsync());
         }
 
         public Task ConfigurePortAsync(UartPort port, uint baudRate, PortInProtocols inProtocols, PortOutProtocols outProtocols, CancellationToken cancellationToken = default(CancellationToken))
