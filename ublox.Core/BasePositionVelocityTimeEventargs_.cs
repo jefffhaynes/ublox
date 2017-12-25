@@ -48,7 +48,7 @@ namespace ublox.Core
         public GpsTimeOfWeek GpsTimeOfWeek { get; }
         public DateTime DateTime { get; }
         public GnssFixType FixType { get; }
-        public byte Flags { get; set; }
+        public byte Flags { get; }
         public double Latitude { get; }
         public double Longitude { get; }
         public Distance Height { get; }
