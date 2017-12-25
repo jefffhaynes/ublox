@@ -49,10 +49,11 @@ namespace ublox.Core
             _listenCancellationTokenSource.Cancel();
         }
 
-        [Obsolete("Obsolete : call StartListeningAsync and ConfigurePortAsync with appropriate parameters if needed")]
+        [Obsolete("Use StartListeningAsync and ConfigurePortAsync as needed")]
         public async Task InitializeAsync()
         {
-            throw new NotImplementedException();
+            await StartListeningAsync();
+            await ConfigurePortAsync(UartPort.Uart1, 9600, PortInProtocols.Ubx, PortOutProtocols.Ubx);
         }
 
         public async Task StartListeningAsync()
