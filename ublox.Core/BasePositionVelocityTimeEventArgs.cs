@@ -7,7 +7,7 @@ namespace ublox.Core
 {
     public class BasePositionVelocityTimeEventArgs : EventArgs
     {
-        internal BasePositionVelocityTimeEventArgs(NavPvt navPvt)
+        public BasePositionVelocityTimeEventArgs(NavPvt navPvt)
         {
             GpsTimeOfWeek = navPvt.GpsTimeOfWeek;
             DateTime = navPvt.UbloxDateTime.DateTime;
@@ -26,7 +26,7 @@ namespace ublox.Core
             HeadingOfVehicle = navPvt.HeadingOfVehicle;
         }
 
-        internal BasePositionVelocityTimeEventArgs(HnrPvt hnrPvt)
+        public BasePositionVelocityTimeEventArgs(HnrPvt hnrPvt)
         {
             GpsTimeOfWeek = hnrPvt.GpsTimeOfWeek;
             DateTime = hnrPvt.UbloxDateTime.DateTime;
