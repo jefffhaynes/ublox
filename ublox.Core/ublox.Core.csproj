@@ -6,10 +6,10 @@
     <RootNamespace>ublox.Core</RootNamespace>
     <Description>Core definition of the UBX protocol</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.2.2</Version>
+    <Version>0.2.3</Version>
     <Authors>Jeff Haynes</Authors>
     <Company />
-    <PackageReleaseNotes>Fixed wrong branch</PackageReleaseNotes>
+    <PackageReleaseNotes>Bug fixes</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
