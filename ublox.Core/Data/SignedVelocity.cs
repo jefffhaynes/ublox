@@ -12,7 +12,7 @@ namespace ublox.Core.Data
         {
         }
 
-        public uint MillimetersPerSecond { get; set; }
+        public int MillimetersPerSecond { get; set; }
 
         protected override double GetMillimetersPerSecond()
         {
@@ -21,7 +21,7 @@ namespace ublox.Core.Data
 
         protected override void SetMillimetersPerSecond(double millimetersPerSecond)
         {
-            MillimetersPerSecond = Convert.ToUInt32(millimetersPerSecond);
+            MillimetersPerSecond = Convert.ToInt32(millimetersPerSecond);
         }
     }
 }

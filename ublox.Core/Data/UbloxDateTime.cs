@@ -14,6 +14,21 @@ namespace ublox.Core.Data
             DateTime = dateTime;
         }
 
+        public UbloxDateTime(ushort year, byte month, byte day, byte hour, byte minute, byte second, byte validityFlags, uint timeAccuractyNs, int nanosecond)
+        {
+            Year = year;
+            Month = month;
+            Day = day;
+            Hour = hour;
+            Minute = minute;
+            Second = second;
+
+            ValidityFlags = validityFlags;
+            TimeAccuracyNs = timeAccuractyNs;
+
+            Nanosecond = nanosecond;
+        }
+
         [FieldOrder(0)]
         public ushort Year { get; set; }
 
@@ -47,7 +62,7 @@ namespace ublox.Core.Data
             get
             {
                 var dt = new DateTime(Year, Month, Day, Hour, Minute, Second);
-                var ticks = Nanosecond * Constants.TicksPerNanosecond;
+                var ticks = Nanosecond / Constants.NanosecondsPerTick;
                 return dt.AddTicks(ticks);
             }
 
@@ -67,11 +82,11 @@ namespace ublox.Core.Data
                 }
 
                 var remainder = value - new DateTime(Year, Month, Day, Hour, Minute, Second);
-                Nanosecond = (int) (remainder.Ticks / Constants.TicksPerNanosecond);
+                Nanosecond = (int) (remainder.Ticks * Constants.NanosecondsPerTick);
             }
         }
 
         [Ignore]
-        public TimeSpan TimeAccuracy => TimeSpan.FromTicks(TimeAccuracyNs * Constants.TicksPerNanosecond);
+        public TimeSpan TimeAccuracy => TimeSpan.FromTicks(TimeAccuracyNs / Constants.NanosecondsPerTick);
     }
 }
