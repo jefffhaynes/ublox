@@ -1,2 +1,2 @@
 # ublox
-C# library to communicate with ublox GPS devices through binary procotol UBX
+A C# library to enable communication with u-blox GPS devices using the UBX binary procotol.
