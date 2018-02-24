@@ -10,8 +10,8 @@ namespace ublox.Core.Data
         [Ignore]
         public TimeSpan Time
         {
-            get => TimeSpan.FromTicks(Value * Constants.TicksPerNanosecond);
-            set => Value = (int)(value.Ticks / (double)Constants.TicksPerNanosecond);
+            get => TimeSpan.FromTicks(Value / Constants.NanosecondsPerTick);
+            set => Value = (int)(value.Ticks * (double)Constants.NanosecondsPerTick);
         }
     }
 }
