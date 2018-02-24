@@ -48,7 +48,7 @@ namespace ublox.Core
             _serialDevice.Write(buffer);
         }
 
-        public override async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        public override Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
         {
             if (offset != 0)
             {
@@ -60,9 +60,7 @@ namespace ublox.Core
                 throw new ArgumentOutOfRangeException(nameof(count), count, "Must match buffer length.");
             }
 
-            var data = await _serialDevice.ReadAsync((uint)count, cancellationToken);
-            Array.Copy(data, buffer, data.Length);
-            return data.Length;
+            return _serialDevice.ReadAsync(buffer, offset, count, cancellationToken);
         }
 
         public override bool CanRead => true;
