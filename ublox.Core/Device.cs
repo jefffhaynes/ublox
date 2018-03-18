@@ -272,6 +272,7 @@ namespace ublox.Core
             } while (!cancellationToken.IsCancellationRequested && !once);
         }
 
+#if DEBUG
         private static void OnMemberSerializing(object sender, MemberSerializingEventArgs e)
         {
             Debug.WriteLine("S-Start: {0} @ {1}", e.MemberName, e.Offset);
@@ -293,5 +294,6 @@ namespace ublox.Core
             var value = e.Value ?? "null";
             Debug.WriteLine("D-End: {0} ({1}) @ {2}", e.MemberName, value, e.Offset);
         }
+#endif
     }
 }
