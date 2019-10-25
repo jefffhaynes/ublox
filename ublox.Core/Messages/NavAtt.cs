@@ -14,7 +14,7 @@ namespace ublox.Core.Messages
 
         [FieldOrder(2)]
         [FieldLength(3)]
-        public byte Reserved { get; set; }
+        public byte[] Reserved { get; set; }
 
         [FieldOrder(3)]
         [FieldScale(100000)]
