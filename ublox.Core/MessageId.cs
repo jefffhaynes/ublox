@@ -23,6 +23,11 @@
         NAV_DOP = 0x0104,
 
         /// <summary>
+        /// NAV-ATT message
+        /// </summary>
+        NAV_ATT = 0x0105,
+
+        /// <summary>
         /// NAV-SOL message
         /// </summary>
         NAV_SOL = 0x0106,
