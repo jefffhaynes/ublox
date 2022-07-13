@@ -6,14 +6,16 @@
     <RootNamespace>ublox.Core</RootNamespace>
     <Description>Core definition of the UBX protocol</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>0.2.3</Version>
+    <Version>0.2.4</Version>
     <Authors>Jeff Haynes</Authors>
     <Company />
-    <PackageReleaseNotes>Bug fixes</PackageReleaseNotes>
+    <PackageReleaseNotes>Package updates</PackageReleaseNotes>
+    <AssemblyVersion>0.2.4.0</AssemblyVersion>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BinarySerializer" Version="7.5.3" />
+    <PackageReference Include="BinarySerializer" Version="8.5.2" />
   </ItemGroup>
 
 </Project>

@@ -71,5 +71,24 @@ namespace ublox.Universal
 
             return bufferStream.ToArray();
         }
+
+        public async Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        {
+            if(offset != 0)
+            {
+                throw new NotSupportedException();
+            }
+
+            if(count < 0)
+            {
+                throw new NotSupportedException();
+            }
+
+            var data = await ReadAsync((uint) count, cancellationToken);
+
+            data.CopyTo(buffer, 0);
+
+            return data.Length;
+        }
     }
 }

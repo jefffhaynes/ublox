@@ -31,6 +31,7 @@ namespace ublox.Core
         public event EventHandler<HighNavRatePositionVelocityTimeEventArgs> HighNavRatePositionVelocityTimeUpdated;
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
         public event EventHandler<RawMeasurementDataEventArgs> RawDataProductVariantUpdated;
+        public event EventHandler<SatelliteInfoEventArgs> SatelliteInfoUpdated;
 
         public Device(ISerialDevice serialDevice)
         {
@@ -255,6 +256,14 @@ namespace ublox.Core
                             {
                                 PositionVelocityTimeUpdated?.Invoke(this,
                                     new PositionVelocityTimeEventArgs((NavPvt)packet.Content.Payload));
+
+                                break;
+                            }
+
+                        case MessageId.NAV_SAT:
+                            {
+                                SatelliteInfoUpdated?.Invoke(this,
+                                    new SatelliteInfoEventArgs((NavSat)packet.Content.Payload));
 
                                 break;
                             }

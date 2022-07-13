@@ -5,33 +5,40 @@ namespace ublox.Core
 {
     public class FieldFletcherChecksum : FieldValueAttributeBase
     {
-        private int _sum1;
-        private int _sum2;
+        class FletcherState
+        {
+            public int Sum1 { get; set; }
+            public int Sum2 { get; set; }
+        }
 
         public FieldFletcherChecksum(string valuePath) : base(valuePath)
         {
         }
 
-        protected override void Reset(BinarySerializationContext context)
+        protected override object GetInitialState(BinarySerializationContext context)
         {
-            _sum1 = 0;
-            _sum2 = 0;
+            return new FletcherState();
         }
 
-        protected override void Compute(byte[] buffer, int offset, int count)
+        protected override object GetUpdatedState(object state, byte[] buffer, int offset, int count)
         {
+            var fletcherState = (FletcherState) state;
+
             for (int i = offset; i < count; i++)
             {
-                _sum1 += buffer[i];
-                _sum2 += _sum1;
+                fletcherState.Sum1 += buffer[i];
+                fletcherState.Sum2 += fletcherState.Sum1;
             }
+
+            return fletcherState;
         }
 
-        protected override object ComputeFinal()
+        protected override object GetFinalValue(object state)
         {
-            var a = _sum1 & 0xff;
-            var b = _sum2 & 0xff;
-            return BitConverter.ToUInt16(new[] {(byte)a, (byte)b}, 0);
+            var fletcherState = (FletcherState) state;
+            var a = fletcherState.Sum1 & 0xff;
+            var b = fletcherState.Sum2 & 0xff;
+            return BitConverter.ToUInt16(new[] { (byte)a, (byte)b }, 0);
         }
     }
 }

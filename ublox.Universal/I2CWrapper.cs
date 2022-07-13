@@ -44,5 +44,10 @@ namespace ublox.Universal
             _i2cDevice.Read(data);
             return Task.FromResult(data);
         }
+
+        public Task<int> ReadAsync(byte[] buffer, int offset, int count, CancellationToken cancellationToken)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
