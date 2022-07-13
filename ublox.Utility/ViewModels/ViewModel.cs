@@ -10,6 +10,8 @@ using Windows.UI.Core;
 using ublox.Core;
 using ublox.Core.Messages.Enums;
 using ublox.Universal;
+using System.Collections.Generic;
+using ublox.Core.Messages;
 
 namespace ublox.Utility.ViewModels
 {
@@ -26,6 +28,7 @@ namespace ublox.Utility.ViewModels
         private DateTime _time;
         private TimeSpan _timeAccuracy;
         private uint _satelliteCount;
+        private List<SvInfo> _satellites;
 
         public event EventHandler<PositionVelocityTimeEventArgs> PositionVelocityTimeUpdated;
 
@@ -156,6 +159,16 @@ namespace ublox.Utility.ViewModels
             }
         }
 
+        public List<SvInfo> Satellites
+        {
+            get => _satellites;
+            set
+            {
+                _satellites = value;
+                OnPropertyChanged();
+            }
+        }
+
         private async void ConnectAsync()
         {
             if (SelectedSerialDevice == null)
@@ -177,6 +190,14 @@ namespace ublox.Utility.ViewModels
                     FixType = args.FixType;
                     SatelliteCount = args.SatelliteCount;
                     PositionVelocityTimeUpdated?.Invoke(this, args);
+                });
+            };
+
+            _gps.SatelliteInfoUpdated += async (sender, args) =>
+            {
+                await DispatchAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    Satellites = args.Satellites;
                 });
             };
 

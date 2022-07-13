@@ -6,7 +6,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:converters="using:ublox.Utility.Converters"
     xmlns:viewModels="using:ublox.Utility.ViewModels"
-    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps"
+    xmlns:maps="using:Windows.UI.Xaml.Controls.Maps" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:ViewModel}">
 
     <Page.Resources>
@@ -93,6 +93,10 @@
                     </Grid>
                 </Border>
             </Grid>
+        </PivotItem>
+        <PivotItem Header="Satellites">
+            <controls:DataGrid ItemsSource="{Binding Satellites, Mode=OneWay}" AutoGenerateColumns="True">
+            </controls:DataGrid>
         </PivotItem>
         <PivotItem Header="Map">
             <maps:MapControl Name="Map" ZoomLevel="16"
