@@ -27,6 +27,8 @@ namespace ublox.Core
         [Subtype(nameof(MessageId), MessageId.NAV_ATT, typeof(NavAtt))]
         [Subtype(nameof(MessageId), MessageId.NAV_SAT, typeof(NavSat))]
         [Subtype(nameof(MessageId), MessageId.NAV_SAT, typeof(NavSatPoll), BindingMode = BindingMode.OneWayToSource)]
+        [Subtype(nameof(MessageId), MessageId.NAV_SVINFO, typeof(NavSvInfo))]
+        [Subtype(nameof(MessageId), MessageId.NAV_SVINFO, typeof(NavSvInfoPoll), BindingMode = BindingMode.OneWayToSource)]
         [Subtype(nameof(MessageId), MessageId.CFG_HNR, typeof(CfgHnr))]
         [Subtype(nameof(MessageId), MessageId.RXM_RAWX, typeof(RxmRawx))]
         [Subtype(nameof(MessageId), MessageId.HNR_PVT, typeof(HnrPvt))]

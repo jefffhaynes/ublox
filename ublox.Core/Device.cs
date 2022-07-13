@@ -260,10 +260,10 @@ namespace ublox.Core
                                 break;
                             }
 
-                        case MessageId.NAV_SAT:
+                        case MessageId.NAV_SVINFO:
                             {
                                 SatelliteInfoUpdated?.Invoke(this,
-                                    new SatelliteInfoEventArgs((NavSat)packet.Content.Payload));
+                                    new SatelliteInfoEventArgs((NavSvInfo)packet.Content.Payload));
 
                                 break;
                             }

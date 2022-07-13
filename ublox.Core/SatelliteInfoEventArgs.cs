@@ -6,11 +6,11 @@ namespace ublox.Core
 {
     public class SatelliteInfoEventArgs : EventArgs
     {
-        internal SatelliteInfoEventArgs(NavSat navSat)
+        internal SatelliteInfoEventArgs(NavSvInfo navSvInfo)
         {
-            Satellites = navSat.Satellites;
+            Satellites = navSvInfo.Satellites;
         }
 
-        public List<SatelliteDetail> Satellites { get; }
+        public List<SvInfo> Satellites { get; }
     }
 }
