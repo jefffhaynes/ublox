@@ -62,7 +62,7 @@
         /// </summary>
         public byte TrackingStatusBitfield { get; set; }
 
-        internal RawDataProductVariantMeasure(Messages.RxmRawxMeasurement m)
+        public RawDataProductVariantMeasure(Messages.RxmRawxMeasurement m)
         {
             Pseudorange = m.PseudorangeMeasurement;
             CarrierPhaseMeasurement = m.CarrierPhaseMeasurement;

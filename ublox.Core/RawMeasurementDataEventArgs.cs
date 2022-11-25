@@ -7,7 +7,7 @@ namespace ublox.Core
 {
     public class RawMeasurementDataEventArgs : EventArgs
     {
-        internal RawMeasurementDataEventArgs(RxmRawx rxmRawx)
+        public RawMeasurementDataEventArgs(RxmRawx rxmRawx)
         {
             ReceiverTimeOfWeek = rxmRawx.ReceiverTimeOfWeek;
             GpsWeekNumber = rxmRawx.GpsWeekNumber;

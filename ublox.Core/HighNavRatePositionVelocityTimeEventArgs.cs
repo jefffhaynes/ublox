@@ -5,7 +5,7 @@ namespace ublox.Core
 {
     public class HighNavRatePositionVelocityTimeEventArgs : BasePositionVelocityTimeEventArgs
     {
-        internal HighNavRatePositionVelocityTimeEventArgs(HnrPvt hnrPvt) : base(hnrPvt)
+        public HighNavRatePositionVelocityTimeEventArgs(HnrPvt hnrPvt) : base(hnrPvt)
         {
             Speed = hnrPvt.Speed;
         }

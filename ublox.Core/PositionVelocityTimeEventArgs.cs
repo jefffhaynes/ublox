@@ -6,7 +6,7 @@ namespace ublox.Core
 {
     public class PositionVelocityTimeEventArgs : BasePositionVelocityTimeEventArgs
     {
-        internal PositionVelocityTimeEventArgs(NavPvt navPvt) : base(navPvt)
+        public PositionVelocityTimeEventArgs(NavPvt navPvt) : base(navPvt)
         {
             TimeAccuracy = navPvt.UbloxDateTime.TimeAccuracy;
             SatelliteCount = navPvt.SatelliteCount;
